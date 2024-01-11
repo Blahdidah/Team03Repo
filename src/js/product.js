@@ -5,12 +5,13 @@ import ProductData from './ProductData.mjs';
 const dataSource = new ProductData('tents');
 
 function addProductToCart(product) {
-  let currentCart = getLocalStorage('so-cart')  // Get the shopping cart array
+  let currentCart = getLocalStorage('so-cart'); // Get the shopping cart array
 
-  if (!Array.isArray(currentCart)) {  // Make sure it's an array
-    currentCart = [] // If not, make an empty array
+  if (!Array.isArray(currentCart)) {
+    // Make sure it's an array
+    currentCart = []; // If not, make an empty array
   }
-  currentCart.push(product)
+  currentCart.push(product);
 
   setLocalStorage('so-cart', currentCart);
 }
