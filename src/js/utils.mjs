@@ -21,3 +21,18 @@ export function setClick(selector, callback) {
   });
   qs(selector).addEventListener('click', callback);
 }
+/**
+ * Render a list of something to an HTMLElement based on a template function.
+ * @param {function} templateFn 
+ * @param {HTMLElement} parentElement 
+ * @param {Array} list 
+ * @param {string} position 
+ * @param {boolean} clear 
+ */
+export function renderListWithTemplate(templateFn, parentElement, list, position = 'afterbegin', clear = false) {
+    const htmlProductList = list.map(templateFn)
+    if(clear) {
+      parentElement.innerHTML = ''; //Better way?
+    }
+    parentElement.insertAdjacentHTML(position, htmlProductList.join(''));
+}

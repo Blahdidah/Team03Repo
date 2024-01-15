@@ -1,4 +1,5 @@
-import ProductData from './ProductData.mjs';
+import ProductData from './ProductData.mjs'; // For intellisense purposes
+import { renderListWithTemplate } from './utils.mjs';
 
 /**
  * Helper function to generate a product card based on values provided by the product parameter object.
@@ -36,14 +37,29 @@ export default class ProductListing {
   init() {
     this.dataSource
       .getData()
+      .then((dataArray) => dataArray.filter(this.productFilter))
       .then((dataArray) => this.renderList(dataArray));
   }
+
+  /**
+   * Filter predicate to remove everything not on the list
+   * @param {Object} product An object containing product data
+   * @returns {Boolean} 
+   */
+  productFilter(product) {
+    if(['880RR', '985RF' ,'985PR', '344YJ'].includes(product.Id)) { // Move this literal out 
+        return true;
+    }
+    else {
+        return false;
+    }
+  }
+
   /**
    * Renders all the card li to the page at the specified element.
    * @param {Array<Object>} productList 
    */
   renderList(productList) {
-    const htmlProductList = productList.map(productCardTemplate)
-    this.listElement.insertAdjacentHTML('afterbegin', htmlProductList.join(''));
+    renderListWithTemplate(productCardTemplate, this.listElement, productList, 'afterbegin', true);
     }
   }
