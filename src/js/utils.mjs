@@ -29,6 +29,24 @@ export function getParam(param) {
 }
 
 /**
+ * 
+ * @param {HTMLElement} cartDiv 
+ */
+export function updateCartCountIcon(cartDiv) {
+  /** @type {Array<object>} */
+  let cart = getLocalStorage('so-cart');
+  if(cart.length) {  //Truthy
+    const countIcon = document.createElement('div');
+
+    countIcon.classList.add('count-icon');
+    
+    countIcon.innerText = `${cart.length}`;
+    cartDiv.append(countIcon);
+  }
+}
+
+
+/**
  * Animates an origin element being put into a target element.
  * @param {HTMLElement} originElement 
  * @param {HTMLElement} targetElement 
@@ -64,7 +82,7 @@ export function itemToCartAnimate(originElement, targetElement, duration) {
     .finished.then(() => { // Part one of second stage of animation: cart bounce.
       targetElement.animate(
         [
-          { transform: `scaleX(1) scaleY(1))` },
+          { transform: `scaleX(1) scaleY(1)` },
           { transform: `scaleX(1.2) scaleY(0.8)` },
           { transform: `scaleX(1) scaleY(1)` },
         ],
