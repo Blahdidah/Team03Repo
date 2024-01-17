@@ -2,7 +2,7 @@
 
 /**
  * Take a Response and converts it to a promise for an Object representing the JSON data
- * @param {Response} res 
+ * @param {Response} res
  * @returns {Promise<Object>}
  */
 function convertToJson(res) {
@@ -21,7 +21,7 @@ export default class ProductData {
    * Sets the category and path where the json data is located.
    * @param {String} category Specifies the category of products who json file should be loaded.
    */
-  
+
   constructor(category) {
     this.category = category;
     this.path = `../json/${this.category}.json`;

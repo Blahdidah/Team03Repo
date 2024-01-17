@@ -46,22 +46,28 @@ export default class ProductListing {
   /**
    * Filter predicate to remove everything not on the list
    * @param {Object} product An object containing product data
-   * @returns {Boolean} 
+   * @returns {Boolean}
    */
   productFilter(product) {
-    if(['880RR', '985RF' ,'985PR', '344YJ'].includes(product.Id)) { // Move this literal out 
-        return true;
-    }
-    else {
-        return false;
+    if (['880RR', '985RF', '985PR', '344YJ'].includes(product.Id)) {
+      // Move this literal out
+      return true;
+    } else {
+      return false;
     }
   }
 
   /**
    * Renders all the card li to the page at the specified element.
-   * @param {Array<Object>} productList 
+   * @param {Array<Object>} productList
    */
   renderList(productList) {
-    renderListWithTemplate(productCardTemplate, this.listElement, productList, 'afterbegin', true);
-    }
+    renderListWithTemplate(
+      productCardTemplate,
+      this.listElement,
+      productList,
+      'afterbegin',
+      true
+    );
   }
+}
