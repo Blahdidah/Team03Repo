@@ -1,3 +1,4 @@
+// pairs to /cart/index.html
 import { getLocalStorage } from './utils.mjs';
 
 function renderCartContents() {

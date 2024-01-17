@@ -1,12 +1,23 @@
-import { getLocalStorage, setLocalStorage } from "./utils.mjs";
+import ProductData from './utils.mjs'; // For javadoc
+import { getLocalStorage, setLocalStorage } from './utils.mjs';
 
+/**
+ * A class to hold and display details for a single product
+ */
 export default class ProductDetails {
+    /**
+     * Constructor
+     * @param {String} productId 
+     * @param {ProductData} dataSource 
+     */
     constructor(productId, dataSource) {
         this.productId = productId;
         this.product = {};
         this.dataSource = dataSource;
     }
-
+    /**
+     * Setup up and render the product to the page
+     */
     async init() {
         // use our datasource to get the details for the current product. findProductById will return a promise! use await or .then() to process it
         // once we have the product details we can render out the HTML
@@ -20,8 +31,11 @@ export default class ProductDetails {
             .addEventListener('click', this.addToCart.bind(this));
         });       
     }
-
-    addToCart(product) {
+    /**
+     * Add the product the shopping cart
+     * @param {Event} event 
+     */
+    addToCart(event) {
         //construct an existing cart, check if it is an array
         let existingCart = getLocalStorage('so-cart') || [];
         if (!Array.isArray(existingCart)) {
@@ -32,6 +46,9 @@ export default class ProductDetails {
         setLocalStorage('so-cart', existingCart);
     }
 
+    /**
+     * Render the template to the page
+     */
     renderProductDetails() {
         const details = document.querySelector('.product-detail');
         const template = `<h3>${this.product.Brand.Name}</h3>

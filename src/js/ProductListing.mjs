@@ -1,3 +1,5 @@
+// Class and helper functions to render a list of products the the root index.html
+
 import ProductData from './ProductData.mjs'; // For intellisense purposes
 import { renderListWithTemplate } from './utils.mjs';
 

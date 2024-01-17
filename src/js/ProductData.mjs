@@ -1,3 +1,5 @@
+// A Class and helper functions to handle collections of products
+
 /**
  * Take a Response and converts it to a promise for an Object representing the JSON data
  * @param {Response} res 
