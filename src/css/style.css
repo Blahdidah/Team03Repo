@@ -208,7 +208,7 @@ button {
   bottom: 8px;
   right: 0px;
   display: flex;
-  background-color: #f00a;
+  background-color: var(--primary-color);
   width: 20px;
   padding: 0;
   color: white;
@@ -219,6 +219,7 @@ button {
   border-radius: 50%;
   border: 1px solid white;
   pointer-events: none;
+  text-shadow: 0 0 .3em #320;
 }
 
 @media screen and (min-width: 500px) {
