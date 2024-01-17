@@ -39,8 +39,8 @@ export default class ProductListing {
   init() {
     this.dataSource
       .getData()
-      .then((dataArray) => dataArray.filter(this.productFilter))
-      .then((dataArray) => this.renderList(dataArray));
+      .then((productArray) => productArray.filter(this.productFilter))
+      .then((productArray) => this.renderList(productArray));
   }
 
   /**

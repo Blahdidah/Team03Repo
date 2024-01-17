@@ -57,7 +57,7 @@ export function renderListWithTemplate(
 ) {
   const htmlProductList = list.map(templateFn);
   if (clear) {
-    parentElement.innerHTML = ''; //Better way?
+    parentElement.innerHTML = '';
   }
   parentElement.insertAdjacentHTML(position, htmlProductList.join(''));
 }

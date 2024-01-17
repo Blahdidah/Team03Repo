@@ -73,5 +73,6 @@ export default class ProductDetails {
           <button id="addToCart" data-id="${this.product.Id}">Add to Cart</button>
         </div>`;
     details.innerHTML = template;
+    document.querySelector('title').innerHTML = `Sleep Outside | ${this.product.Name}`; // Set the title
   }
 }
