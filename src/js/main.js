@@ -13,4 +13,4 @@ let listing = new ProductListing(
 listing.init(); // Renders the listing to the page
 
 
-updateCartCountIcon(document.querySelector('.cart'
+updateCartCountIcon(document.querySelector('.cart'));

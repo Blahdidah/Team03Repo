@@ -1,6 +1,4 @@
-import { getLocalStorage, itemToCartAnimate, setLocalStorage, updateCartCountIcon } from './utils.mjs';
-import ProductData from './utils.mjs'; // For javadoc
-import { getLocalStorage, setLocalStorage } from './utils.mjs';
+import { getLocalStorage, itemToCartAnimate, setLocalStorage, updateCartCountIcon, ProductData} from './utils.mjs';
 
 /**
  * A class to hold and display details for a single product
