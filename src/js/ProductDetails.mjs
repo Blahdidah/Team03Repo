@@ -51,9 +51,9 @@ export default class ProductDetails {
         <h2 class="divider">${this.product.Name}</h2>
 
         <img
-          class="divider"
-          src="${this.product.Image}"
-          alt="${this.product.Name}"
+            class="divider"
+            src="${this.product.Image}"
+            alt="${this.product.Name}"
         />
 
         <p class="product-card__price">${this.product.ListPrice}</p>
@@ -61,11 +61,11 @@ export default class ProductDetails {
         <p class="product__color">${this.product.Colors[0].ColorName}</p>
 
         <p class="product__description">${this.product.DescriptionHtmlSimple}
-          
+        
         </p>
 
         <div class="product-detail__add">
-          <button id="addToCart" data-id="${this.product.Id}">Add to Cart</button>
+        <button id="addToCart" data-id="${this.product.Id}">Add to Cart</button>
         </div>`;
         details.innerHTML = template;
         
