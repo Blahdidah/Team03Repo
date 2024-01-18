@@ -1,4 +1,4 @@
-// Class and helper functions to render a list of products the the root index.html
+// Class and helper functions to render a list of products on the root index.html
 
 import ProductData from './ProductData.mjs'; // For intellisense purposes
 import { renderListWithTemplate } from './utils.mjs';
@@ -8,7 +8,6 @@ import { renderListWithTemplate } from './utils.mjs';
  * @param {object}
  * @returns {string}
  */
-
 function productCardTemplate(product) {
   return `<li class="product-card">
         <a href="/product_pages/?product=${product.Id}">
@@ -19,6 +18,7 @@ function productCardTemplate(product) {
         </a>
     </li>`;
 }
+
 /**
  * A class to render an html listing of products from a data source.
  */

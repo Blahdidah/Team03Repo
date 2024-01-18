@@ -40,6 +40,7 @@ export function setClick(selector, callback) {
   });
   qs(selector).addEventListener('click', callback);
 }
+
 /**
  * Render a list of something to an HTMLElement based on a template function.
  * @param {function} templateFn
@@ -61,6 +62,7 @@ export function renderListWithTemplate(
   }
   parentElement.insertAdjacentHTML(position, htmlProductList.join(''));
 }
+
 /**
  * Search for and return the value a parameter in the url query.
  * @param {String} param

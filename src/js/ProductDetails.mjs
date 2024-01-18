@@ -1,3 +1,5 @@
+// A class to handle displaying a single product
+
 import {
   getLocalStorage,
   itemToCartAnimate,
