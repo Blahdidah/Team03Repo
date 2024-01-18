@@ -1,4 +1,4 @@
-import { getLocalStorage, setLocalStorage } from "./utils.mjs";
+import { getLocalStorage, itemToCartAnimate, setLocalStorage, updateCartCountIcon } from './utils.mjs';
 
 export default class ProductDetails {
     constructor(productId, dataSource) {
@@ -21,15 +21,27 @@ export default class ProductDetails {
         });       
     }
 
-    addToCart(product) {
+    /**
+     * Add this item to the cart
+     * @param {Event} event 
+     */
+    addToCart(event) {
         //construct an existing cart, check if it is an array
         let existingCart = getLocalStorage('so-cart') || [];
         if (!Array.isArray(existingCart)) {
             existingCart = [];
         }
+        // Put the product onto the list
         existingCart.push(this.product);
-
+   
+        // Run an animation for adding to the cart
+        const cart = document.querySelector('.cart');
+        itemToCartAnimate(event.target.closest('.product-detail').querySelector('img'), cart, 500);
+        
+        // Store the list to local storage
         setLocalStorage('so-cart', existingCart);
+
+        updateCartCountIcon(cart)
     }
 
     renderProductDetails() {

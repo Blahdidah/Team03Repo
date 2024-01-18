@@ -100,6 +100,8 @@ button {
 .cart {
   padding-top: 1em;
   position: relative;
+  top: 1px;
+
   text-align: center;
 }
 
@@ -200,6 +202,24 @@ button {
 .cart-card__price {
   grid-row: 2;
   grid-column: 3;
+}
+.count-icon {
+  position: absolute;
+  bottom: 8px;
+  right: 0px;
+  display: flex;
+  background-color: var(--primary-color);
+  width: 20px;
+  padding: 0;
+  color: white;
+  font-size: .7em;
+  aspect-ratio: 1;
+  align-items: center;
+  justify-content: center;
+  border-radius: 50%;
+  border: 1px solid white;
+  pointer-events: none;
+  text-shadow: 0 0 .3em #320;
 }
 
 @media screen and (min-width: 500px) {
