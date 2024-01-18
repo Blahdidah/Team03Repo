@@ -12,5 +12,4 @@ let listing = new ProductListing(
 ); // Listing for the tents
 listing.init(); // Renders the listing to the page
 
-
 updateCartCountIcon(document.querySelector('.cart'));

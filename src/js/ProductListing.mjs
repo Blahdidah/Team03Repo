@@ -19,7 +19,9 @@ function productCardTemplate(product) {
         </a>
     </li>`;
 }
-
+/**
+ * A class to render an html listing of products from a data source.
+ */
 export default class ProductListing {
   /**
    * Set the category, dataSource and listElement properties.
@@ -48,7 +50,8 @@ export default class ProductListing {
    * @param {Object} product An object containing product data
    * @returns {Boolean}
    */
-  productFilter(product) { // This is a separate function to satisfy the assignment.
+  productFilter(product) {
+    // This is a separate function to satisfy the assignment.
     return ['880RR', '985RF', '985PR', '344YJ'].includes(product.Id); // This is hard coded, but I assume it will be dealt with in a future assignment.
   }
 
