@@ -48,13 +48,8 @@ export default class ProductListing {
    * @param {Object} product An object containing product data
    * @returns {Boolean}
    */
-  productFilter(product) {
-    if (['880RR', '985RF', '985PR', '344YJ'].includes(product.Id)) {
-      // Move this literal out
-      return true;
-    } else {
-      return false;
-    }
+  productFilter(product) { // This is a separate function to satisfy the assignment.
+    return ['880RR', '985RF', '985PR', '344YJ'].includes(product.Id); // This is hard coded, but I assume it will be dealt with in a future assignment.
   }
 
   /**
