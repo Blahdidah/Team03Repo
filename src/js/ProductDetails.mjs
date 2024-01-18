@@ -1,3 +1,4 @@
+import { getLocalStorage, itemToCartAnimate, setLocalStorage, updateCartCountIcon } from './utils.mjs';
 import ProductData from './utils.mjs'; // For javadoc
 import { getLocalStorage, setLocalStorage } from './utils.mjs';
 
@@ -5,46 +6,56 @@ import { getLocalStorage, setLocalStorage } from './utils.mjs';
  * A class to hold and display details for a single product
  */
 export default class ProductDetails {
-  /**
-   * Constructor
-   * @param {String} productId
-   * @param {ProductData} dataSource
-   */
-  constructor(productId, dataSource) {
-    this.productId = productId;
-    this.product = {};
-    this.dataSource = dataSource;
-  }
-  /**
-   * Setup up and render the product to the page
-   */
-  async init() {
-    // use our datasource to get the details for the current product. findProductById will return a promise! use await or .then() to process it
-    // once we have the product details we can render out the HTML
-    // once the HTML is rendered we can add a listener to Add to Cart button
-    // Notice the .bind(this). Our callback will not work if we don't include that line. Review the readings from this week on 'this' to understand why.
-    this.dataSource.findProductById(this.productId).then((data) => {
-      this.product = data;
-      this.renderProductDetails('main');
-      document
-        .getElementById('addToCart')
-        .addEventListener('click', this.addToCart.bind(this));
-    });
-  }
-  /**
-   * Add the product the shopping cart
-   * @param {Event} event
-   */
-  addToCart(event) {
-    //construct an existing cart, check if it is an array
-    let existingCart = getLocalStorage('so-cart') || [];
-    if (!Array.isArray(existingCart)) {
-      existingCart = [];
+      
+      /**
+     * Constructor
+     * @param {String} productId
+     * @param {ProductData} dataSource
+     */
+    constructor(productId, dataSource) {
+        this.productId = productId;
+        this.product = {};
+        this.dataSource = dataSource;
     }
-    existingCart.push(this.product);
+    /**
+     * Setup up and render the product to the page
+     */ 
+    async init() {
+        // use our datasource to get the details for the current product. findProductById will return a promise! use await or .then() to process it
+        // once we have the product details we can render out the HTML
+        // once the HTML is rendered we can add a listener to Add to Cart button
+        // Notice the .bind(this). Our callback will not work if we don't include that line. Review the readings from this week on 'this' to understand why.
+        this.dataSource.findProductById(this.productId).then((data) => {
+            this.product = data;
+            this.renderProductDetails('main');
+        document
+            .getElementById('addToCart')
+            .addEventListener('click', this.addToCart.bind(this));
+        });       
+    }
 
-    setLocalStorage('so-cart', existingCart);
-  }
+    /**
+     * Add this item to the cart
+     * @param {Event} event 
+     */
+    addToCart(event) {
+        //construct an existing cart, check if it is an array
+        let existingCart = getLocalStorage('so-cart') || [];
+        if (!Array.isArray(existingCart)) {
+            existingCart = [];
+        }
+        // Put the product onto the list
+        existingCart.push(this.product);
+   
+        // Run an animation for adding to the cart
+        const cart = document.querySelector('.cart');
+        itemToCartAnimate(event.target.closest('.product-detail').querySelector('img'), cart, 500);
+        
+        // Store the list to local storage
+        setLocalStorage('so-cart', existingCart);
+
+        updateCartCountIcon(cart)
+    }
 
   /**
    * Render the template to the page
@@ -56,9 +67,9 @@ export default class ProductDetails {
         <h2 class="divider">${this.product.Name}</h2>
 
         <img
-          class="divider"
-          src="${this.product.Image}"
-          alt="${this.product.Name}"
+            class="divider"
+            src="${this.product.Image}"
+            alt="${this.product.Name}"
         />
 
         <p class="product-card__price">${this.product.ListPrice}</p>
@@ -66,11 +77,11 @@ export default class ProductDetails {
         <p class="product__color">${this.product.Colors[0].ColorName}</p>
 
         <p class="product__description">${this.product.DescriptionHtmlSimple}
-          
+        
         </p>
 
         <div class="product-detail__add">
-          <button id="addToCart" data-id="${this.product.Id}">Add to Cart</button>
+        <button id="addToCart" data-id="${this.product.Id}">Add to Cart</button>
         </div>`;
     details.innerHTML = template;
     document.querySelector('title').innerHTML = `Sleep Outside | ${this.product.Name}`; // Set the title
