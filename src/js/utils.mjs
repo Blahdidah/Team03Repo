@@ -1,19 +1,38 @@
-// wrapper for querySelector...returns matching element
+/**
+ * wrapper for querySelector...returns matching element
+ * @param {String} selector
+ * @param {HTMLElement} parent
+ * @returns
+ */
 export function qs(selector, parent = document) {
   return parent.querySelector(selector);
 }
 // or a more concise version if you are into that sort of thing:
 // export const qs = (selector, parent = document) => parent.querySelector(selector);
 
-// retrieve data from localstorage
+/**
+ * retrieve data from localstorage
+ * @param {String} key
+ * @returns {String}
+ */
 export function getLocalStorage(key) {
   return JSON.parse(localStorage.getItem(key));
 }
-// save data to local storage
+
+/**
+ * save data to local storage
+ * @param {String} key
+ * @param {Object} data
+ */
 export function setLocalStorage(key, data) {
   localStorage.setItem(key, JSON.stringify(data));
 }
-// set a listener for both touchend and click
+
+/**
+ * set a listener for both touchend and click
+ * @param {String} selector
+ * @param {Function} callback
+ */
 export function setClick(selector, callback) {
   qs(selector).addEventListener('touchend', (event) => {
     event.preventDefault();
@@ -21,6 +40,34 @@ export function setClick(selector, callback) {
   });
   qs(selector).addEventListener('click', callback);
 }
+
+/**
+ * Render a list of something to an HTMLElement based on a template function.
+ * @param {function} templateFn
+ * @param {HTMLElement} parentElement
+ * @param {Array} list
+ * @param {string} position
+ * @param {boolean} clear
+ */
+export function renderListWithTemplate(
+  templateFn,
+  parentElement,
+  list,
+  position = 'afterbegin',
+  clear = false
+) {
+  const htmlProductList = list.map(templateFn);
+  if (clear) {
+    parentElement.innerHTML = '';
+  }
+  parentElement.insertAdjacentHTML(position, htmlProductList.join(''));
+}
+
+/**
+ * Search for and return the value a parameter in the url query.
+ * @param {String} param
+ * @returns {String}
+ */
 export function getParam(param) {
   const queryString = window.location.search;
   const urlParams = new URLSearchParams(queryString);
@@ -29,28 +76,28 @@ export function getParam(param) {
 }
 
 /**
- * 
- * @param {HTMLElement} cartDiv 
+ *
+ * @param {HTMLElement} cartDiv
  */
 export function updateCartCountIcon(cartDiv) {
   /** @type {Array<object>} */
   let cart = getLocalStorage('so-cart');
-  if(cart.length) {  //Truthy
+  if (cart.length) {
+    //Truthy
     const countIcon = document.createElement('div');
 
     countIcon.classList.add('count-icon');
-    
+
     countIcon.innerText = `${cart.length}`;
     cartDiv.append(countIcon);
   }
 }
 
-
 /**
  * Animates an origin element being put into a target element.
- * @param {HTMLElement} originElement 
- * @param {HTMLElement} targetElement 
- * @param {Number} duration 
+ * @param {HTMLElement} originElement
+ * @param {HTMLElement} targetElement
+ * @param {Number} duration
  */
 export function itemToCartAnimate(originElement, targetElement, duration) {
   // Get the boxes
@@ -66,7 +113,8 @@ export function itemToCartAnimate(originElement, targetElement, duration) {
     (originRect.bottom + originRect.top) / 2;
 
   originElement
-    .animate( // First stage of animation, origin to target
+    .animate(
+      // First stage of animation, origin to target
       [
         { transform: `translate(0px, 0px) scale(1) rotate(0deg)` },
         {
@@ -79,7 +127,8 @@ export function itemToCartAnimate(originElement, targetElement, duration) {
         fill: 'none',
       }
     )
-    .finished.then(() => { // Part one of second stage of animation: cart bounce.
+    .finished.then(() => {
+      // Part one of second stage of animation: cart bounce.
       targetElement.animate(
         [
           { transform: `scaleX(1) scaleY(1)` },
@@ -92,7 +141,8 @@ export function itemToCartAnimate(originElement, targetElement, duration) {
           fill: 'none',
         }
       );
-      originElement.animate([{ opacity: `0` }, { opacity: `1` }], { // Part two of second stage of animation: ghost in
+      originElement.animate([{ opacity: `0` }, { opacity: `1` }], {
+        // Part two of second stage of animation: ghost in
         duration: duration * 2,
         easing: 'linear',
         fill: 'none',
