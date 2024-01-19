@@ -99,3 +99,11 @@ export function itemToCartAnimate(originElement, targetElement, duration) {
       });
     });
 }
+//i don't completely understand what i'm supposed to be doing here...
+export function renderListWithTemplate(templateFn, parentElement, list, position = 'afterbegin', clear= false) {
+  const toString = list.map(templateFn);
+  if (clear) {
+    parentElement.innerHTML = '';
+  }
+        parentElement.insertAdjacentHTML(position, toString.join(''));
+}
