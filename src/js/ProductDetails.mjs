@@ -70,6 +70,8 @@ export default class ProductDetails {
    * Render the template to the page
    */
   renderProductDetails() {
+    
+    const discount = (`${this.product.ListPrice}` * .1);
     const details = document.querySelector('.product-detail');
     const template = `<h3>${this.product.Brand.Name}</h3>
 
@@ -82,6 +84,9 @@ export default class ProductDetails {
         />
 
         <p class="product-card__price">${this.product.ListPrice}</p>
+        <p class="product-card__price">${this.product.ListPrice}</p>
+        
+        
 
         <p class="product__color">${this.product.Colors[0].ColorName}</p>
 
