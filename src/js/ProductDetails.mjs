@@ -5,8 +5,8 @@ import {
   itemToCartAnimate,
   setLocalStorage,
   updateCartCountIcon,
-  ProductData,
 } from './utils.mjs';
+import ProductData from './ProductData.mjs'; // For autocomplete purposes
 
 /**
  * A class to hold and display details for a single product

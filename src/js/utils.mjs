@@ -82,14 +82,24 @@ export function getParam(param) {
 export function updateCartCountIcon(cartDiv) {
   /** @type {Array<object>} */
   let cart = getLocalStorage('so-cart');
+  let countIcon = cartDiv.querySelector('.count-icon');
+
   if (cart.length) {
     //Truthy
-    const countIcon = document.createElement('div');
-
-    countIcon.classList.add('count-icon');
-
-    countIcon.innerText = `${cart.length}`;
-    cartDiv.append(countIcon);
+    if (countIcon) {
+      countIcon.innerText =  `${cart.length}`;
+    }
+    else {
+      countIcon = document.createElement('div'); // Make a new one
+      countIcon.classList.add('count-icon'); // So we can find it later and style it
+      countIcon.innerText = `${cart.length}`;
+      cartDiv.append(countIcon);
+    }
+  }
+  else {
+    if (countIcon) { // Remove the icon div if it's there
+      countIcon.remove();
+    }
   }
 }
 

@@ -209,8 +209,8 @@ ul li span:hover {
 }
 .count-icon {
   position: absolute;
-  bottom: 8px;
-  right: 0px;
+  bottom: 30px;
+  right: -3px;
   display: flex;
   background-color: var(--primary-color);
   width: 20px;
