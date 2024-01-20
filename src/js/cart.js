@@ -52,7 +52,7 @@ function cartItemTemplate(item) {
     <h2 class="card__name">${item.Name}</h2>
   </a>
   <p class="cart-card__color">${item.Colors[0].ColorName}</p>
-  <p class="cart-card__quantity">qty: 1</p>
+  <p class="cart-card__quantity">qty: 1 <span class="remove-item" data-id="${item.Id}"> 🗑 </span></p>
   <p class="cart-card__price">$${item.FinalPrice}</p>
 </li>`;
 
@@ -61,3 +61,19 @@ function cartItemTemplate(item) {
 
 renderCartContents();
 updateCartCountIcon(document.querySelector('.cart'));
+
+document.addEventListener('click', function (event) {
+  if (event.target.classList.contains('remove-item')) {
+    const itemId = event.target.getAttribute('data-id');
+    removeItemFromCart(itemId);
+  }
+});
+
+function removeItemFromCart(itemId) {
+  let cartItems = getLocalStorage('so-cart');
+  cartItems = cartItems.filter(item => item.Id !== itemId);
+  localStorage.setItem('so-cart', JSON.stringify(cartItems));
+  updateCartCountIcon(document.querySelector('.cart'));
+  renderCartContents(); // Update the cart display after removal
+}
+

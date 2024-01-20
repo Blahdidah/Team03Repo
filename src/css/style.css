@@ -105,6 +105,10 @@ button {
   text-align: center;
 }
 
+ul li span:hover {
+  font-weight: bolder;
+}
+
 .cart svg {
   width: 25px;
 }
