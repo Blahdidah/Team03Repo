@@ -1,0 +1,12 @@
+[
+    {
+        "message": "This is only a test",
+        "background": "darkblue",
+        "color": "white"
+    },
+    {
+        "message": "Offer expires! Buy it now!",
+        "background": "#a00",
+        "color": "#fff"
+    }
+]
