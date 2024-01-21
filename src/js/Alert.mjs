@@ -9,6 +9,9 @@ export default class Alert {
     constructor(alertsName) {
         this.alertsName = alertsName;
     }
+    /**
+     * Display the alerts in a specified json file.
+     */
     init() {
         // Read/parse alert.json
         fetch(`../json/${this.alertsName}.json`)
