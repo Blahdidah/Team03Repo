@@ -1,4 +1,4 @@
-import { getLocalStorage, updateCartCountIcon } from './utils.mjs';
+import { getLocalStorage, loadHeaderFooter, updateCartCountIcon } from './utils.mjs';
 
 function renderCartContents() {
   const cartItems = getLocalStorage('so-cart');
@@ -60,7 +60,6 @@ function cartItemTemplate(item) {
 }
 
 renderCartContents();
-updateCartCountIcon(document.querySelector('.cart'));
 
 document.addEventListener('click', function (event) {
   if (event.target.classList.contains('remove-item')) {
@@ -77,3 +76,4 @@ function removeItemFromCart(itemId) {
   renderCartContents(); // Update the cart display after removal
 }
 
+loadHeaderFooter('partials');

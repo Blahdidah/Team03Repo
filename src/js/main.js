@@ -1,6 +1,6 @@
 // Pairs to /index.html
 
-import { updateCartCountIcon } from './utils.mjs';
+import { updateCartCountIcon, loadHeaderFooter} from './utils.mjs';
 import ProductData from './ProductData.mjs';
 import ProductListing from './ProductListing.mjs';
 import Alert from './Alert.mjs';
@@ -17,6 +17,6 @@ let alerts = new Alert('alerts');
 listing.init(); // Renders the listing to the page
 alerts.init();  // Renders the alerts to the page
 
-updateCartCountIcon(document.querySelector('.cart'));
-
+loadHeaderFooter('partials');
+//updateCartCountIcon(document.querySelector('.cart'));
 
