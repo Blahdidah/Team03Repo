@@ -63,6 +63,52 @@ export function renderListWithTemplate(
   parentElement.insertAdjacentHTML(position, htmlProductList.join(''));
 }
 
+export function renderWithTemplate(
+  template,
+  parentElement,
+  data = null,
+  position = 'afterbegin',
+  clear = false,
+  callback = null
+) {
+  //const htmlProductList = list.map(templateFn);
+
+
+  if (clear) {
+    parentElement.innerHTML = '';
+  }
+  parentElement.insertAdjacentHTML(position, template.innerHTML);
+
+  if(callback) {
+    //wait
+  }
+}
+
+export async function loadHeaderFooter(path) {
+  // Load teh header and footer
+  const headerTemplate = await loadTemplate(`/${path}/header.html`);
+  const footerTemplate = await loadTemplate(`/${path}/footer.html`);
+
+  // Get header footer element
+  const headerElement = document.getElementById('page-header');
+  const footerElement = document.getElementById('page-footer');
+
+  // Render the header and footer
+  renderWithTemplate(headerTemplate, headerElement, {}, undefined, true, null);
+  renderWithTemplate(footerTemplate, footerElement);
+
+}
+
+export async function loadTemplate(path) {
+  const templateText = await fetch(`${path}`).then(((response) => response.text()));
+
+  const template = document.createElement('template');
+  template.innerHTML = templateText;
+
+  return template;
+}
+
+
 /**
  * Search for and return the value a parameter in the url query.
  * @param {String} param
