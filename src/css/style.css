@@ -153,6 +153,10 @@ ul li span:hover {
   margin: 0.5em 0;
 }
 
+#discount-percent {
+  color: red;
+}
+
 .card__brand {
   font-size: var(--small-font);
 }

@@ -16,7 +16,7 @@ function productCardTemplate(product) {
             <h3 class="card__brand">${product.Brand.Name}</h3>
             <h2 class="card__name">${product.Name}</h2>
             <p class="product-card__price">MSRP: $${product.SuggestedRetailPrice.toFixed(2)}</p>
-            <p class="product-card__price">${discount.toFixed(0)}% off</p>
+            <p class="product-card__price" id="discount-percent">${discount.toFixed(0)}% off</p>
             <p class="product-card__price">Our Price: $${product.ListPrice.toFixed(2)}</p>
         </a>
     </li>`;
