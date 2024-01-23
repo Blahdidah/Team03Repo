@@ -73,14 +73,13 @@ export function renderWithTemplate(
 ) {
   //const htmlProductList = list.map(templateFn);
 
-
   if (clear) {
-    parentElement.innerHTML = '';
+    //parentElement.innerHTML = '';
   }
   parentElement.insertAdjacentHTML(position, template.innerHTML);
 
-  if(callback) {
-    //wait
+  if (callback) {
+    callback();
   }
 }
 
@@ -94,20 +93,22 @@ export async function loadHeaderFooter(path) {
   const footerElement = document.getElementById('page-footer');
 
   // Render the header and footer
-  renderWithTemplate(headerTemplate, headerElement, {}, undefined, true, null);
+  renderWithTemplate(headerTemplate, headerElement, {}, undefined, true, () =>
+    updateCartCountIcon(document.querySelector('.cart'))
+  );
   renderWithTemplate(footerTemplate, footerElement);
-
 }
 
 export async function loadTemplate(path) {
-  const templateText = await fetch(`${path}`).then(((response) => response.text()));
+  const templateText = await fetch(`${path}`).then((response) =>
+    response.text()
+  );
 
   const template = document.createElement('template');
   template.innerHTML = templateText;
 
   return template;
 }
-
 
 /**
  * Search for and return the value a parameter in the url query.
@@ -133,17 +134,16 @@ export function updateCartCountIcon(cartDiv) {
   if (cart.length) {
     //Truthy
     if (countIcon) {
-      countIcon.innerText =  `${cart.length}`;
-    }
-    else {
+      countIcon.innerText = `${cart.length}`;
+    } else {
       countIcon = document.createElement('div'); // Make a new one
       countIcon.classList.add('count-icon'); // So we can find it later and style it
       countIcon.innerText = `${cart.length}`;
       cartDiv.append(countIcon);
     }
-  }
-  else {
-    if (countIcon) { // Remove the icon div if it's there
+  } else {
+    if (countIcon) {
+      // Remove the icon div if it's there
       countIcon.remove();
     }
   }

@@ -60,7 +60,6 @@ function cartItemTemplate(item) {
 }
 
 renderCartContents();
-//updateCartCountIcon(document.querySelector('.cart'));
 
 document.addEventListener('click', function (event) {
   if (event.target.classList.contains('remove-item')) {
