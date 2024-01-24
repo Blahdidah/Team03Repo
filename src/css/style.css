@@ -125,9 +125,17 @@ ul li span:hover {
   max-width: 600px;
   margin: auto;
 }
+
 .products {
   padding: 0.5em;
 }
+
+.product-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+  list-style-type: none;
+}
+
 .product-list {
   display: flex;
   flex-flow: row wrap;
@@ -135,18 +143,23 @@ ul li span:hover {
   list-style-type: none;
   padding: 0;
 }
-.product-list a {
+.product-list a, .category-card a {
   text-decoration: none;
   color: var(--dark-grey);
 }
 /* Styles for product lists */
-.product-card {
+.product-card, .category-card {
   flex: 1 1 45%;
   margin: 0.25em;
   padding: 0.5em;
   border: 1px solid var(--light-grey);
   max-width: 250px;
 }
+
+.category-card {
+  text-align: center;
+}
+
 .product-card h2,
 .product-card h3,
 .product-card p {

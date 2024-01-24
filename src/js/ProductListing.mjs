@@ -41,11 +41,15 @@ export default class ProductListing {
   /**
    * Initialize
    */
-  init() {
-    this.dataSource
-      .getData()
-      .then((productArray) => productArray.filter(this.productFilter))
-      .then((productArray) => this.renderList(productArray));
+  async init() {
+    const list = await this.dataSource.getData(this.category);
+    this.renderList(list);
+    document.querySelector('.title').innerHTML = this.category;
+
+    // this.dataSource
+    //   .getData()
+    //   .then((productArray) => productArray.filter((product) => this.productFilter(product)))
+    //   .then((productArray) => this.renderList(productArray));
   }
 
   /**
@@ -70,5 +74,6 @@ export default class ProductListing {
       'afterbegin',
       true
     );
+    
   }
 }
