@@ -1,7 +1,7 @@
 // Class and helper functions to render a list of products on the root index.html
 
 import ProductData from './ProductData.mjs'; // For intellisense purposes
-import { renderListWithTemplate } from './utils.mjs';
+import { renderListWithTemplate, initialUpper } from './utils.mjs';
 
 /**
  * Helper function to generate a product card based on values provided by the product parameter object.
@@ -44,6 +44,9 @@ export default class ProductListing {
   async init() {
     const list = await this.dataSource.getData(this.category);
     this.renderList(list);
+
+    document.querySelector('.products').querySelector('h2').innerText = `Top Products: ${initialUpper(this.category)}`;
+    document.title += `: ${initialUpper(this.category)}`;
 
     // this.dataSource
     //   .getData()
