@@ -1,13 +1,15 @@
 // Pairs to /index.html
 
-import {loadHeaderFooter} from './utils.mjs';
+import {loadHeaderFooter, getParam } from './utils.mjs';
 import ProductData from './ProductData.mjs';
 import ProductListing from './ProductListing.mjs';
 
 
-let tents = new ProductData('tents'); // All the tents
+const category = getParam('category');
+
+let tents = new ProductData(category); // All the tents
 let listing = new ProductListing(
-  'tents',
+  category,
   tents,
   document.querySelector('.product-list')
 ); // Listing for the tents
