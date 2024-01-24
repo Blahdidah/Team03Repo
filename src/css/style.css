@@ -233,6 +233,33 @@ ul li span:hover {
   padding: .5em;
   margin: 0;
 }
+.product-categories {
+  display: grid;
+  grid-template-columns: 1fr 1fr 1fr 1fr;
+  max-width: 700px;
+  margin: auto;
+  gap: 2em;
+  padding: 1em;
+}
+.product-categories > * {
+  text-align: center;
+  box-shadow: 0 0 0 #0004;
+  border-radius: 1em;
+  padding: 1em;
+  transition: box-shadow 1s;
+  min-width: 110px;
+}
+.product-categories > *:hover {
+  box-shadow: 0 .5em .5em .5em #0002;
+  transition: box-shadow 1s;
+}
+
+.product-categories a {
+  color: black;
+  text-decoration: none;
+}
+
+
 
 @media screen and (min-width: 500px) {
   body {
