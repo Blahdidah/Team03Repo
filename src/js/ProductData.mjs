@@ -1,4 +1,4 @@
-const baseURL = "https://server-nodejs.cit.byui.edu:3000/";
+const baseURL = "https://wdd330-backend.onrender.com/";
 // A Class and helper functions to handle collections of products
 
 /**
