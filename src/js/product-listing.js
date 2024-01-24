@@ -5,7 +5,7 @@ import Alert from './Alert.mjs';
 
 loadHeaderFooter('partials');
 const category = getParam('category');
-const dataSource = new ProductData(category);
+const dataSource = new ProductData();
 const element = document.querySelector('.product-list');
 const listing = new ProductListing(category, dataSource, element);
 let alerts = new Alert('alerts');

@@ -33,7 +33,6 @@ export default class ProductData {
    * @returns {Promise<Array<Object>>}An object containing all the data in the categories JSON file
    */
   async getData(category) {
-    utils.getParam(category);
     const response = await fetch(baseURL + `products/search/${category}`);
     const data = await convertToJson(response);
     return data.Result;
