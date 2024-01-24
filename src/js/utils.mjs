@@ -100,10 +100,13 @@ export async function loadHeaderFooter(path) {
 }
 
 export async function loadTemplate(path) {
-  const res = await fetch(path);
-  const template = await res.text();
+  const templateText = await fetch(`${path}`).then((response) =>
+    response.text()
+  );
+  const template = document.createElement('template');
+  template.innerHTML = templateText;
   return template;
-};
+}
 
 /**
  * Search for and return the value a parameter in the url query.
