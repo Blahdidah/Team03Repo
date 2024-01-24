@@ -1,4 +1,4 @@
-const baseURL = "https://wdd330-backend.onrender.com/";
+const baseURL = import.meta.env.VITE_SERVER_URL
 // A Class and helper functions to handle collections of products
 
 /**
