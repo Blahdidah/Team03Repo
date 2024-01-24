@@ -1,5 +1,7 @@
 // A Class and helper functions to handle collections of products
 
+const baseURL = import.meta.env.VITE_SERVER_URL;
+
 /**
  * Take a Response and converts it to a promise for an Object representing the JSON data
  * @param {Response} res
@@ -22,19 +24,29 @@ export default class ProductData {
    * @param {String} category Specifies the category of products who json file should be loaded.
    */
 
-  constructor(category) {
-    this.category = category;
-    this.path = `../json/${this.category}.json`;
+  constructor() {
+    
+    
+    //this.category = category;
+    //this.path = `../json/${this.category}.json`;
+
   }
 
   /**
    * Get an array of objects representing products
+   * @param {String} category
    * @returns {Promise<Array<Object>>}An object containing all the data in the categories JSON file
    */
-  getData() {
-    return fetch(this.path)
-      .then(convertToJson)
-      .then((data) => data);
+  async getData(category) {
+    const response = await fetch(baseURL + `products/search/${category}`);
+    const data = await convertToJson(response);
+    return data.Result;
+    
+    
+    
+    // return fetch(this.path)
+    //   .then(convertToJson)
+    //   .then((data) => data);
   }
 
   /**
@@ -43,7 +55,12 @@ export default class ProductData {
    * @returns {Promise<Object>} a promise for an object containing the product data.
    */
   async findProductById(id) {
-    const products = await this.getData();
-    return products.find((item) => item.Id === id);
+    const response = await fetch(baseURL + `product/${id}`);
+    const product = await convertToJson(response);
+    console.log(product.Result);
+    
+    //const products = await this.getData();
+    //this.product = product.Result.find((item) => item.Id === id);
+    return product.Result;
   }
 }

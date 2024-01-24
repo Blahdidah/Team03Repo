@@ -9,10 +9,12 @@ import { renderListWithTemplate, getLocalStorage, updateCartCountIcon } from './
  * @returns {string}
  */
 function cartItemTemplate(product) {
-    const newItem = `<li class="cart-card divider">
+  console.log(product);  
+  
+  const newItem = `<li class="cart-card divider">
   <a href="#" class="cart-card__image">
     <img
-      src="${product.Image}"
+      src="${product.Images.PrimarySmall}"
       alt="${product.Name}"
     />
   </a>

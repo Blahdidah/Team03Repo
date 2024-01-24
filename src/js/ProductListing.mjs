@@ -12,7 +12,7 @@ function productCardTemplate(product) {
   const discount = (1 - (product.ListPrice / product.SuggestedRetailPrice)) * 100;
   return `<li class="product-card">
         <a href="/product_pages/?product=${product.Id}">
-            <img src="${product.Image}" alt="${product.Name}">
+            <img src="${product.Images.PrimaryMedium}" alt="${product.Name}">
             <h3 class="card__brand">${product.Brand.Name}</h3>
             <h2 class="card__name">${product.Name}</h2>
             <p class="product-card__price">MSRP: $${product.SuggestedRetailPrice.toFixed(2)}</p>
@@ -41,11 +41,14 @@ export default class ProductListing {
   /**
    * Initialize
    */
-  init() {
-    this.dataSource
-      .getData()
-      .then((productArray) => productArray.filter(this.productFilter))
-      .then((productArray) => this.renderList(productArray));
+  async init() {
+    const list = await this.dataSource.getData(this.category);
+    this.renderList(list);
+
+    // this.dataSource
+    //   .getData()
+    //   .then((productArray) => productArray.filter(this.productFilter))
+    //   .then((productArray) => this.renderList(productArray));
   }
 
   /**
@@ -55,8 +58,8 @@ export default class ProductListing {
    */
   productFilter(product) {
     // This is a separate function to satisfy the assignment.
-    return true;  // TODO: Fix this
-    //return ['880RR', '985RF', '985PR', '344YJ'].includes(product.Id); // This is hard coded, but I assume it will be dealt with in a future assignment.
+    //return true;  // TODO: Fix this
+    return !['989CG','880RT'].includes(product.Id); // This is hard coded, but I assume it will be dealt with in a future assignment.
   }
 
   /**
