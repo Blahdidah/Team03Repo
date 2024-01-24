@@ -79,7 +79,7 @@ export default class ProductDetails {
 
         <img
             class="divider"
-            src="${product.Images.PrimaryLarge}"
+            src="${this.product.Images.PrimaryLarge}"
             alt="${this.product.Name}"
         />
 
