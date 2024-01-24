@@ -129,7 +129,7 @@ export function updateCartCountIcon(cartDiv) {
   let cart = getLocalStorage('so-cart');
   let countIcon = cartDiv.querySelector('.count-icon');
 
-  if (cart.length) {
+  if (cart && cart.length) {
     //Truthy
     if (countIcon) {
       countIcon.innerText = `${cart.length}`;
