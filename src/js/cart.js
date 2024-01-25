@@ -1,4 +1,8 @@
-import { getLocalStorage, loadHeaderFooter, updateCartCountIcon } from './utils.mjs';
+import {
+  getLocalStorage,
+  loadHeaderFooter,
+  updateCartCountIcon,
+} from './utils.mjs';
 
 function renderCartContents() {
   const cartItems = getLocalStorage('so-cart');
@@ -70,7 +74,7 @@ document.addEventListener('click', function (event) {
 
 function removeItemFromCart(itemId) {
   let cartItems = getLocalStorage('so-cart');
-  cartItems = cartItems.filter(item => item.Id !== itemId);
+  cartItems = cartItems.filter((item) => item.Id !== itemId);
   localStorage.setItem('so-cart', JSON.stringify(cartItems));
   updateCartCountIcon(document.querySelector('.cart'));
   renderCartContents(); // Update the cart display after removal

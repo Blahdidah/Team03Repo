@@ -31,8 +31,8 @@ export default class Alert {
           document.querySelector('main').prepend(alertsElement);
         }
       })
-      .catch(() => { 
+      .catch(() => {
         //No action necessary. Just won't show any alerts.
-    });
+      });
   }
 }

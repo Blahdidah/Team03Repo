@@ -9,18 +9,23 @@ import { renderListWithTemplate } from './utils.mjs';
  * @returns {string}
  */
 function productCardTemplate(product) {
-  const discount = (1 - (product.ListPrice / product.SuggestedRetailPrice)) * 100;
-    return `<li class="product-card">
+  const discount = (1 - product.ListPrice / product.SuggestedRetailPrice) * 100;
+  return `<li class="product-card">
         <a href="/product_pages/?product=${product.Id}">
             <img src="${product.Images.PrimaryMedium}" alt="${product.Name}">
             <h3 class="card__brand">${product.Brand.Name}</h3>
             <h2 class="card__name">${product.Name}</h2>
-            <p class="product-card__price">MSRP: $${product.SuggestedRetailPrice.toFixed(2)}</p>
-            <p class="product-card__price" id="discount-percent">${discount.toFixed(0)}% off</p>
-            <p class="product-card__price">Our Price: $${product.ListPrice.toFixed(2)}</p>
+            <p class="product-card__price">MSRP: $${product.SuggestedRetailPrice.toFixed(
+              2
+            )}</p>
+            <p class="product-card__price" id="discount-percent">${discount.toFixed(
+              0
+            )}% off</p>
+            <p class="product-card__price">Our Price: $${product.ListPrice.toFixed(
+              2
+            )}</p>
         </a>
     </li>`;
-    
 }
 
 /**
@@ -43,10 +48,12 @@ export default class ProductListing {
    * Initialize
    */
   async init() {
-    this.dataSource
-      const list = await this.dataSource.getData(this.category);
-      this.renderList(list);
-      document.querySelector('title').innerHTML = `Sleep Outside | ${this.category}`;
+    this.dataSource;
+    const list = await this.dataSource.getData(this.category);
+    this.renderList(list);
+    document.querySelector(
+      'title'
+    ).innerHTML = `Sleep Outside | ${this.category}`;
   }
 
   /**

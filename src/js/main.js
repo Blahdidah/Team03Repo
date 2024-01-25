@@ -13,10 +13,7 @@ let listing = new ProductListing(
 ); // Listing for the tents */
 let alerts = new Alert('alerts');
 
-
 //listing.init(); // Renders the listing to the page
-alerts.init();  // Renders the alerts to the page
-
+alerts.init(); // Renders the alerts to the page
 
 //updateCartCountIcon(document.querySelector('.cart'));
-
