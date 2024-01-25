@@ -2,14 +2,36 @@ import { getLocalStorage, loadHeaderFooter, updateCartCountIcon } from './utils.
 
 function renderCartContents() {
   const cartItems = getLocalStorage('so-cart');
+  
   if (cartItems && cartItems.length > 0) {
-    const htmlItems = cartItems.map((item) => cartItemTemplate(item));
-    document.querySelector('.product-list').innerHTML = htmlItems.join('');
+    
+    const quantityMap = new Map();
+
+    cartItems.forEach((item)=>{
+      const itemId = item.Id;
+      if(quantityMap.has(itemId)){
+        quantityMap.set(itemId, quantityMap.get(itemId)+1);
+      }else{
+        quantityMap.set(itemId, 1);
+      }
+    });
+    //this helps prevent duplicate line items in the cart
+    const uniqueProductIds = Array.from(quantityMap.keys());
+    document.querySelector('.product-list').innerHTML = '';
+
+    uniqueProductIds.forEach((itemId)=>{
+      const item = cartItems.find((cartItem) => cartItem.Id === itemId);
+      const htmlItem = cartItemTemplate(item, quantityMap.get(itemId));
+      document.querySelector('.product-list').insertAdjacentHTML('beforeend', htmlItem);
+    })
+    //const htmlItems = cartItems.map((item) => cartItemTemplate(item, quantityMap.get(item.Id)));
+    //document.querySelector('.product-list').innerHTML = htmlItems.join('');
     showTotal();
   } else {
     document.querySelector('.product-list').innerHTML =
       '<p>Your cart is empty.</p>';
     hideTotal();
+
   }
 }
 
@@ -40,7 +62,8 @@ function calculateTotal(cartItems) {
   return total;
 }
 
-function cartItemTemplate(item) {
+function cartItemTemplate(item, quantity) {
+  //console.log('image path:', item);
   const newItem = `<li class="cart-card divider">
   <a href="#" class="cart-card__image">
     <img
@@ -52,7 +75,7 @@ function cartItemTemplate(item) {
     <h2 class="card__name">${item.Name}</h2>
   </a>
   <p class="cart-card__color">${item.Colors[0].ColorName}</p>
-  <p class="cart-card__quantity">qty: 1 <span class="remove-item" data-id="${item.Id}"> 🗑 </span></p>
+  <p class="cart-card__quantity">qty: ${quantity} <span class="remove-item" data-id="${item.Id}"> 🗑 </span></p>
   <p class="cart-card__price">$${item.FinalPrice}</p>
 </li>`;
 
