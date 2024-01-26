@@ -3,10 +3,11 @@ import { getParam, updateCartCountIcon, loadHeaderFooter } from './utils.mjs';
 import ProductData from './ProductData.mjs';
 import ProductDetails from './ProductDetails.mjs';
 
-const dataSource = new ProductData('tents');
+loadHeaderFooter('partials');
+
+const dataSource = new ProductData();
 const productId = getParam('product');
 const product = new ProductDetails(productId, dataSource);
 product.init();
 
-loadHeaderFooter('partials');
 //updateCartCountIcon(document.querySelector('.cart'));
