@@ -182,6 +182,7 @@ ul li span:hover {
   grid-template-columns: 25% auto 15%;
   font-size: var(--small-font);
   /* max-height: 120px; */
+  width: 100%;
   align-items: center;
 }
 

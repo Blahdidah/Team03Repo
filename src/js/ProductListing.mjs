@@ -55,14 +55,14 @@ export default class ProductListing {
   }
 
   /**
-   * Filter predicate to remove everything not on the list
+   * Filter predicate to remove everything on the list
    * @param {Object} product An object containing product data
    * @returns {Boolean}
    */
   productFilter(product) {
     // This is a separate function to satisfy the assignment.
-    //return true;  // TODO: Fix this
-    return !['989CG','880RT'].includes(product.Id); // This is hard coded, but I assume it will be dealt with in a future assignment.
+    //return !['989CG','880RT'].includes(product.Id); // This is hard coded, but I assume it will be dealt with in a future assignment.
+    return true; // We don't need to filter these now.
   }
 
   /**
