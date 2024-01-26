@@ -29,6 +29,7 @@ header {
   display: flex;
   justify-content: space-between;
   padding: 0 10px;
+  align-items: center;
 }
 .logo {
   line-height: 60px;
@@ -98,7 +99,8 @@ button {
 
 /* Cart icon styles */
 .cart {
-  padding-top: 1em;
+  
+  padding: 0 1em 0 1em;
   position: relative;
   top: 1px;
 
@@ -213,8 +215,8 @@ ul li span:hover {
 }
 .count-icon {
   position: absolute;
-  bottom: 30px;
-  right: -3px;
+  top: -1em;
+  right: 1em;
   display: flex;
   background-color: var(--primary-color);
   width: 20px;
@@ -232,6 +234,46 @@ ul li span:hover {
 .alert-list > p {
   padding: .5em;
   margin: 0;
+}
+#search {
+  display: flex;
+  flex-direction: row;
+  height: 2em;
+  margin-left: auto;
+}
+#search * {
+  font-size: 1em;
+  
+}
+#search input[type="text"] {
+  box-shadow: 1px 1px 4px rgba(0, 0, 0, 0.329) inset;
+}
+#search input[type="text"]:focus {
+  background-color: var(--secondary-color);
+  color: white;
+  border-radius: 0;
+  
+}
+#search input[type="text"]:focus-visible {
+  
+  border-radius: 0;
+  outline: none;
+}
+#search input[type="submit"]:hover {
+  background-color: var(--primary-color);
+}
+
+.input-set * {
+  border: 0px solid var(--primary-color);
+  background-color: var(--light-grey);
+  
+}
+
+.input-set *:first-child {
+  border-radius: .5em 0 0 .5em;
+}
+.input-set *:last-child {
+  border-radius: 0 .5em .5em 0;
 }
 
 @media screen and (min-width: 500px) {
