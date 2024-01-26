@@ -213,3 +213,11 @@ export function convertToJson(res) {
     throw new Error('Bad Response');
   }
 }
+/**
+ * Makes the first character upper case
+ * @param {String} string 
+ * @returns 
+ */
+export function initialUpper(string) {
+  return string.charAt(0).toUpperCase() + string.slice(1);
+}
