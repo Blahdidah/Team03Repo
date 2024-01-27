@@ -76,12 +76,16 @@ export default class ProductDetails {
     const template = `<h3>${this.product.Brand.Name}</h3>
 
         <h2 class="divider">${this.product.Name}</h2>
-
+        <picture>
+        <source media="(min-width:650px)" srcset="${this.product.Images.PrimaryExtraLarge}">  
+        <source media="(min-width:465px)" srcset="${this.product.Images.PrimaryLarge}">
+        <source media="(min-width:365px)" srcset="${this.product.Images.PrimaryMedium}">  
         <img
-            class="divider"
-            src="${this.product.Images.PrimaryLarge}"
-            alt="${this.product.Name}"
-        />
+          class="divider"
+          src="${this.product.Images.PrimarySmall}"
+          alt="${this.product.Name}"
+      />
+      </picture>
 
         <p class="product-card__price" id="msrp">MSRP: $${this.product.SuggestedRetailPrice.toFixed(2)}</p>
         <p class="product-card__price" id="discount-percent">Discounted ${discount.toFixed(0)}%</p>
