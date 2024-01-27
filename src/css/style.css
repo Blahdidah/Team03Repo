@@ -274,7 +274,6 @@ ul li span:hover {
 }
 #search * {
   font-size: 1em;
-  
 }
 #search input[type="text"] {
   box-shadow: 1px 1px 4px rgba(0, 0, 0, 0.329) inset;
@@ -296,8 +295,9 @@ ul li span:hover {
 
 .input-set * {
   border: 0px solid var(--primary-color);
-  background-color: var(--light-grey);
-  
+  background-color: #eee;
+  padding-left: .2em;
+  height: 100%;
 }
 
 .input-set *:first-child {
