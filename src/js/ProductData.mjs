@@ -33,9 +33,8 @@ export default class ProductData {
    */
   async getData(category) {
     let data = [];
-    
-    if(category.toLowerCase() == 'all') {
-      // Load all categories and filter
+
+    if(category.toLowerCase() == 'all') { // Return the whole thing. If I can figure our how to get the api to accept search queries, I can improve this.
       for (let _category of ['tents', 'backpacks', 'hammocks', 'sleeping-bags']) {
         let response = await fetch(baseURL + `products/search/${_category}`);
         let responseData = await convertToJson(response);
@@ -45,13 +44,10 @@ export default class ProductData {
     }
     else { // Just load one category
       let response = await fetch(baseURL + `products/search/${category}`);
-      data = await convertToJson(response).Result;
+      let responseData = await convertToJson(response);
+      data = responseData.Result;
     }
-    
-    
-   
     return data;
-    
   }
 
   /**

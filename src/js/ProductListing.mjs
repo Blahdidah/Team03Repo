@@ -80,10 +80,13 @@ export default class ProductListing {
     if(keyWords.length) {
       for (let keyWord of keyWords) {
         let expression = new RegExp(keyWord);
-        if(expression.test(product.Name.toLowerCase())) {
+        if(expression.test(product.Name.toLowerCase())) {  // Match against name
           return true;
         }
-        if(expression.test(product.DescriptionHtmlSimple.toLowerCase())) {
+        if(expression.test(product.DescriptionHtmlSimple.toLowerCase())) { // Match against description
+          return true;
+        }
+        if(expression.test(product.Category.toLowerCase())) { // Match against category
           return true;
         }
 
