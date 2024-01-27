@@ -1,5 +1,6 @@
-const baseURL = import.meta.env.VITE_SERVER_URL
 // A Class and helper functions to handle collections of products
+
+const baseURL = import.meta.env.VITE_SERVER_URL
 
 /**
  * Take a Response and converts it to a promise for an Object representing the JSON data
@@ -24,8 +25,7 @@ export default class ProductData {
    */
 
   constructor(category) {
-    // this.category = category;
-    // this.path = `../json/${this.category}.json`;
+    
   }
 
   /**

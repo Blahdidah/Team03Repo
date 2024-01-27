@@ -46,10 +46,6 @@ export default class ProductListing {
     this.renderList(list);
     document.querySelector('.title').innerHTML = this.category;
 
-    // this.dataSource
-    //   .getData()
-    //   .then((productArray) => productArray.filter((product) => this.productFilter(product)))
-    //   .then((productArray) => this.renderList(productArray));
   }
 
   /**

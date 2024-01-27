@@ -1,5 +1,4 @@
 import { getLocalStorage, setLocalStorage, updateCartCountIcon } from "./utils.mjs";
-// import { showTotal, hideTotal } from ".cart"
 
 function cartItemTemplate(item) {
     const newItem = `<li class="cart-card divider">
