@@ -21,15 +21,9 @@ function convertToJson(res) {
 export default class ProductData {
   /**
    * Sets the category and path where the json data is located.
-   * @param {String} category Specifies the category of products who json file should be loaded.
    */
-
   constructor() {
-    
-    
-    //this.category = category;
-    //this.path = `../json/${this.category}.json`;
-
+    // Empty
   }
 
   /**
@@ -38,15 +32,22 @@ export default class ProductData {
    * @returns {Promise<Array<Object>>}An object containing all the data in the categories JSON file
    */
   async getData(category) {
-    const response = await fetch(baseURL + `products/search/${category}`);
-    const data = await convertToJson(response);
-    return data.Result;
-    
-    
-    
-    // return fetch(this.path)
-    //   .then(convertToJson)
-    //   .then((data) => data);
+    let data = [];
+
+    if(category.toLowerCase() == 'all') { // Return the whole thing. If I can figure our how to get the api to accept search queries, I can improve this.
+      for (let _category of ['tents', 'backpacks', 'hammocks', 'sleeping-bags']) {
+        let response = await fetch(baseURL + `products/search/${_category}`);
+        let responseData = await convertToJson(response);
+        data = data.concat(responseData.Result); // Append the new data
+      }
+      //console.log(data.Result);
+    }
+    else { // Just load one category
+      let response = await fetch(baseURL + `products/search/${category}`);
+      let responseData = await convertToJson(response);
+      data = responseData.Result;
+    }
+    return data;
   }
 
   /**

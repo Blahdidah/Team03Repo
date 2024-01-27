@@ -31,18 +31,23 @@ export default class ProductListing {
    * @param {String} category
    * @param {ProductData} dataSource
    * @param {HTMLElement} listElement
+   * @param {Array} keyWords
    */
-  constructor(category, dataSource, listElement) {
+  constructor(category, dataSource, listElement, keyWords) {
     this.category = category;
     this.dataSource = dataSource;
     this.listElement = listElement;
+    this.keyWords = keyWords;
   }
 
   /**
    * Initialize
    */
   async init() {
-    const list = await this.dataSource.getData(this.category);
+    /** @param {Array} list*/
+    let list = await this.dataSource.getData(this.category);
+    list = list.filter((product) => this.searchFilter(product, this.keyWords))
+    
     this.renderList(list);
 
     document.querySelector('.products').querySelector('h2').innerText = `Top Products: ${initialUpper(this.category)}`;
@@ -63,6 +68,39 @@ export default class ProductListing {
     // This is a separate function to satisfy the assignment.
     //return !['989CG','880RT'].includes(product.Id); // This is hard coded, but I assume it will be dealt with in a future assignment.
     return true; // We don't need to filter these now.
+  }
+
+  /**
+   * 
+   * @param {Object} product 
+   * @param {Array} keyWords 
+   */
+  searchFilter(product, keyWords) {
+    // Look at important fields and look for keyword matches. Return true if one is found.
+    if(keyWords.length) {
+      for (let keyWord of keyWords) {
+        let expression = new RegExp(keyWord);
+        if(expression.test(product.Name.toLowerCase())) {  // Match against name
+          return true;
+        }
+        if(expression.test(product.DescriptionHtmlSimple.toLowerCase())) { // Match against description
+          return true;
+        }
+        if(expression.test(product.Category.toLowerCase())) { // Match against category
+          return true;
+        }
+
+        // if(product.Name.toLowerCase().split(' ').includes(keyWord.toLowerCase())) {
+        //   return true;
+        // }
+      }
+     return false;
+    }
+    else {
+      true;
+    }
+ 
+
   }
 
   /**
