@@ -8,7 +8,7 @@ import { renderListWithTemplate, getLocalStorage, updateCartCountIcon } from './
  * @param {object}
  * @returns {string}
  */
-function cartItemTemplate(product) {
+function cartItemTemplate(product, quantity) {
   console.log(product);  
   
   const newItem = `<li class="cart-card divider">
@@ -22,7 +22,7 @@ function cartItemTemplate(product) {
     <h2 class="card__name">${product.Name}</h2>
   </a>
   <p class="cart-card__color">${product.Colors[0].ColorName}</p>
-  <p class="cart-card__quantity">qty: 1 <span class="remove-item" data-id="${product.Id}"> 🗑 </span></p>
+  <p class="cart-card__quantity">qty: ${quantity} <span class="remove-item" data-id="${product.Id}"> 🗑 </span></p>
   <p class="cart-card__price">$${product.FinalPrice}</p>
 </li>`;
 
@@ -62,9 +62,24 @@ export default class ShoppingCart {
 
   renderCartContents() {
     const cartItems = getLocalStorage('so-cart');
+
     if (cartItems && cartItems.length > 0) {
-      const htmlItems = cartItems.map((item) => cartItemTemplate(item));
-      document.querySelector('.product-list').innerHTML = htmlItems.join('');
+      const quantityMap = new Map();
+      cartItems.forEach((item)=>{
+        const itemId = item.Id;
+        if(quantityMap.has(itemId)){
+          quantityMap.set(itemId, quantityMap.get(itemId)+1);
+        }else{
+          quantityMap.set(itemId, 1);
+        }
+      });
+      const uniqueProductIds = Array.from(quantityMap.keys());
+      document.querySelector('.product-list').innerHTML = '';
+      uniqueProductIds.forEach((itemId)=>{
+        const item = cartItems.find((cartItem) => cartItem.Id === itemId);
+        const htmlItem = cartItemTemplate(item, quantityMap.get(itemId));
+        document.querySelector('.product-list').insertAdjacentHTML('beforeend', htmlItem);
+      })
       this.showTotal();
     } else {
       document.querySelector('.product-list').innerHTML =
