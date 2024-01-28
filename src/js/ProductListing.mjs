@@ -79,7 +79,7 @@ export default class ProductListing {
     // Look at important fields and look for keyword matches. Return true if one is found.
     if(keyWords.length) {
       for (let keyWord of keyWords) {
-        let expression = new RegExp(keyWord);
+        let expression = new RegExp(keyWord.toLowerCase());
         if(expression.test(product.Name.toLowerCase())) {  // Match against name
           return true;
         }
