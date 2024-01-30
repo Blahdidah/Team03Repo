@@ -21,6 +21,7 @@
       <section class="products">
         <h2>Review & Place your Order</h2>
       </section>
+      
       <form name="checkout">
         <fieldset>
           <legend>Customer Information</legend>
@@ -45,15 +46,29 @@
             <legend>Order Summary</legend>
             <ul>
                 <li>
-                    <label id="subtotal"><input readonly></label>
-                    <label id="ship"><input readonly></label>
-                    <label id="tax"><input readonly></label>
-                    <label id="orderTotal"><input readonly></label>
+                    <label for="subtotal">Item SubTotal: (<span id="num-items"></span>)
+                    </label>
+                    <p name="subtotal" id="subtotal"></p>
+                    </li>
+                    <li>
+                    <label for="ship">Shipping estimate:
+                    </label>
+                    <p id="shipping"></p>
+                    </li>
+                    <li>
+                    <label for="tax">Tax:
+                    </label>
+                    <p id="tax"></p> 
+                    </li>
+                    <li>
+                    <label for="orderTotal">Order Total:
+                    </label>
+                    <p id="orderTotal"></p>
                 </li>
             </ul>
             
           </fieldset>
-        <input type="submit" value="Purchase" class="submitBtn">
+        <button id="checkoutSubmit" type="submit">Checkout</button>
 
       </form>
     </main>
