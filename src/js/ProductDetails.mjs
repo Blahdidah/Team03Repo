@@ -87,7 +87,7 @@ export default class ProductDetails {
       />
       </picture>
 
-        <p class="product-card__price" id="msrp">MSRP: $${this.product.SuggestedRetailPrice.toFixed(2)}</p>
+        <p class="product-card__price" id="msrp">${this.product.isClearance?"!":"🚩"}MSRP: $${this.product.SuggestedRetailPrice.toFixed(2)}</p>
         <p class="product-card__price" id="discount-percent">Discounted ${discount.toFixed(0)}%</p>
         <p class="product-card__price" id="our-price">Our Price: $${this.product.ListPrice.toFixed(2)}</p>
 
