@@ -1,5 +1,7 @@
 // A Class and helper functions to handle collections of products
 
+
+
 const baseURL = import.meta.env.VITE_SERVER_URL;
 
 /**
@@ -18,7 +20,7 @@ function convertToJson(res) {
 /**
  * A class to hold a list of object representing products
  */
-export default class ProductData {
+export default class ExternalServices {
   /**
    * Sets the category and path where the json data is located.
    */
@@ -63,4 +65,5 @@ export default class ProductData {
     //this.product = product.Result.find((item) => item.Id === id);
     return product.Result;
   }
+
 }

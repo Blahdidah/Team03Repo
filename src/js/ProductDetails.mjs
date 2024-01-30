@@ -6,7 +6,7 @@ import {
   setLocalStorage,
   updateCartCountIcon,
 } from './utils.mjs';
-import ProductData from './ProductData.mjs'; // For autocomplete purposes
+import ExternalServices from './ExternalServices.mjs'; // For autocomplete purposes
 
 /**
  * A class to hold and display details for a single product
@@ -15,7 +15,7 @@ export default class ProductDetails {
   /**
    * Constructor
    * @param {String} productId
-   * @param {ProductData} dataSource
+   * @param {ExternalServices} dataSource
    */
   constructor(productId, dataSource) {
     this.productId = productId;

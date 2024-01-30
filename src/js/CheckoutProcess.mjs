@@ -1,4 +1,31 @@
 import { getLocalStorage } from "./utils.mjs";
+import ExternalServices  from "./ExternalServices.mjs";
+
+
+const services = new ExternalServices();
+
+function packageItems(items) {
+    // convert the list of products from localStorage to the simpler form required for the checkout process. Array.map would be perfect for this.
+    return items.map((item) => {
+      let newItem = {
+        id: item.Id,
+        name: item.Name,
+        price: item.FinalPrice,
+        quantity: 1,
+      };
+      return newItem;
+    });
+  }
+
+ function formDataToJSON(formElement) {
+    const formInfo = new FormData(formElement);
+    const convertedJSON = {};
+
+    formInfo.forEach(function (value, key) {
+        convertedJSON[key] = value;
+    });
+    return convertedJSON;
+ }
 
 export default class CheckoutProcess {
     constructor(key, outputSelector) {
@@ -10,11 +37,20 @@ export default class CheckoutProcess {
         this.ship = 0;
         this.itemTotal = 0;
         this.orderTotal = 0;
+
+        
+
+        }
+        async checkout(form) {
+            let formInfo = newFormData(form.target);
+
+
     }
     init() {
         this.list = getLocalStorage(this.key);
         this.itemSummary();
     }
+
     itemSummary() {
         const summaryElement = document.querySelector(this.outputSelect + "#");
         const itemNum = document.querySelector(this.outputSelector + "#num-item");
@@ -33,14 +69,6 @@ export default class CheckoutProcess {
     }
 
     displayOrderTotal() {
-        const formElement = document.forms["checkout"];
-
-        const json = formDataJson(formElement);
-        json.orderDate = new Date();
-        json.orderTotal = this.orderTotal;
-        json.tax = this.tax;
-        json.ship = this.ship;
-        json.items = packageItems(this.list)
-        console.log(json);
+        const shipping = 
     }
 }
