@@ -21,6 +21,41 @@
       <section class="products">
         <h2>Review & Place your Order</h2>
       </section>
+      <form name="checkout">
+        <fieldset>
+          <legend>Customer Information</legend>
+          <label>First Name*<input type="text" id="fname" name="fname" required></label>
+          <label>Last Name*<input type="text" id="lname" name="lname" required></label>
+        </fieldset>
+        <fieldset>
+          <legend>Address</legend>
+          <label>Street*<input type="text" id="street" name="street" required></label>
+          <label>City* <input type="text" id="city" name="city" required></label>
+          <label>State*<input type="text" id="state" name="state" required></label>
+          <label>Zipcode*<input type="number" id="zip" name="zip" required></label>
+        </fieldset>
+        <fieldset>
+          <legend>Payment</legend>
+          <label>Card Number*<input type="number" id="cardNum" name="cardNum" readonly required></label>
+          <label>Expiration Date*<input type="text" id="expiration" name="expiration" pattern="^(0[1-9]|[1-9]|1[0-2])\/\d{2}$" readonly required></label>
+          <label>Security Code*<input type="number" id="security" name="security" readonly required></label>
+
+        </fieldset>
+        <fieldset class="checkout-summary">
+            <legend>Order Summary</legend>
+            <ul>
+                <li>
+                    <label id="subtotal"><input readonly></label>
+                    <label id="ship"><input readonly></label>
+                    <label id="tax"><input readonly></label>
+                    <label id="orderTotal"><input readonly></label>
+                </li>
+            </ul>
+            
+          </fieldset>
+        <input type="submit" value="Purchase" class="submitBtn">
+
+      </form>
     </main>
 
     <footer id="page-footer"></footer>
