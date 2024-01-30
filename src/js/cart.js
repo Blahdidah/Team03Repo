@@ -11,3 +11,7 @@ document.addEventListener('click', function (event) {
     shoppingCart.removeItemFromCart(itemId);
   }
 });
+if (cart.total > 0) {
+  // show our checkout button and total if there are items in the cart.
+  document.querySelector(".total-hide").classList.remove("hide");
+}
