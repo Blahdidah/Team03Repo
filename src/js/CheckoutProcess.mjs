@@ -38,23 +38,7 @@ export default class CheckoutProcess {
         this.itemTotal = 0;
         this.orderTotal = 0;
         }
-        async checkout() {
-            //let formInfo = newFormData(form.target);
-            const formElement = document.forms["checkout"];
-            const json = formDataToJSON(formElement);
-            json.orderDate = new Date();
-            json.orderTotal = this.orderTotal;
-            json.tax = this.tax;
-            json.shipping = this.shipping;
-            json.items = packageItems(this.list);
-            console.log(json);
-            try{
-                const res = await services.checkout(json);
-                console.log(res);
-                } catch(err){
-                    console.log(err);
-                }
-    }
+        
     init() {
         this.list = getLocalStorage(this.key);
         this.itemSummary();
@@ -81,5 +65,21 @@ export default class CheckoutProcess {
         const tax = document.querySelector(this.outputSelector +"#tax");
         const orderTotal = document.querySelector(this.outputSelector +"#orderTotal");
     }
-
+    async checkout() {
+        //let formInfo = newFormData(form.target);
+        const formElement = document.forms["checkout"];
+        const json = formDataToJSON(formElement);
+        json.orderDate = new Date();
+        json.orderTotal = this.orderTotal;
+        json.tax = this.tax;
+        json.shipping = this.shipping;
+        json.items = packageItems(this.list);
+        console.log(json);
+        try{
+            const res = await services.checkout(json);
+            console.log(res);
+            } catch(err){
+                console.log(err);
+            }
+    }
 }

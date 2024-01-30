@@ -1,7 +1,4 @@
 // A Class and helper functions to handle collections of products
-
-
-
 const baseURL = import.meta.env.VITE_SERVER_URL;
 
 /**
@@ -64,6 +61,16 @@ export default class ExternalServices {
     //const products = await this.getData();
     //this.product = product.Result.find((item) => item.Id === id);
     return product.Result;
+  }
+  async checkout(payload) {
+    const options = {
+      method: "POST",
+      headers: {
+        "Content-Type": "application/json",
+      },
+      body: JSON.stringify(payload),
+    };
+    return await fetch(baseURL + "checkout/", options).then(convertToJson);
   }
 
 }

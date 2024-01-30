@@ -30,7 +30,7 @@
           <label>Last Name*:</label>
           <input type="text" id="lname" name="lname" required>
         </fieldset>
-        <fieldset>
+        <fieldset class="checkout-form">
           <legend>Address</legend>
           <label>Street*</label>
           <input type="text" id="street" name="street" required>
@@ -55,12 +55,12 @@
             <legend>Order Summary</legend>
             <ul>
                 <li>
-                    <label for="subtotal">Item SubTotal: (<span id="num-items"></span>)
+                    <label for="cartTotal">Item SubTotal: (<span id="num-items"></span>)
                     </label>
-                    <p name="subtotal" id="subtotal"></p>
+                    <p name="cartTotal" id="cartTotal"></p>
                     </li>
                     <li>
-                    <label for="ship">Shipping estimate:
+                    <label for="shipping">Shipping estimate:
                     </label>
                     <p id="shipping"></p>
                     </li>
@@ -77,6 +77,7 @@
             </ul>
             
           </fieldset>
+          
         <button id="checkoutSubmit" type="submit">Checkout</button>
 
       </form>
