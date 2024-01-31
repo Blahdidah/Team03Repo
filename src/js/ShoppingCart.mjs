@@ -68,7 +68,7 @@ export default class ShoppingCart {
       cartItems.forEach((item)=>{
         const itemId = item.Id;
         if(quantityMap.has(itemId)){
-          quantityMap.set(itemId, quantityMap.get(itemId)+1);
+          quantityMap.set(itemId, quantityMap.get(itemId) + 1);
         }else{
           quantityMap.set(itemId, 1);
         }
