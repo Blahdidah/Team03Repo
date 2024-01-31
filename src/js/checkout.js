@@ -9,8 +9,21 @@ document
   .querySelector('#zip')
   .addEventListener('blur', myCheckout.calculateOrderTotal.bind(myCheckout));
 // listening for click on the button
-document.querySelector('#checkoutSubmit').addEventListener('click', (e) => {
-  e.preventDefault();
 
-  myCheckout.checkout();
+//Doing it both ways.
+document.querySelector('#checkoutSubmit').addEventListener('click', (event) => {
+  event.preventDefault();
+  /** @type {HTMLFormElement} */
+  const checkoutForm = document.forms['checkout'];
+  checkoutForm.reportValidity();
+
+  if (checkoutForm.checkValidity()) {
+    myCheckout.checkout();
+  }
 });
+
+
+// document.querySelector('#checkout').addEventListener('submit', (e) => {
+//   e.preventDefault();
+//   myCheckout.checkout();
+// });

@@ -319,6 +319,15 @@ ul li span:hover {
   flex-direction: column;
   gap: 1em;
 }
+.checkout-group input {
+  border-radius: 2px;
+  border: 1px solid green;
+  padding: .5em;
+}
+.checkout-group input:invalid {
+  border: 1px solid red;
+}
+
 .checkout-form, .checkout-items {
   border-radius: .5em;
   background-color: #0001;

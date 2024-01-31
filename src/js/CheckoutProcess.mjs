@@ -1,4 +1,4 @@
-import { getLocalStorage } from './utils.mjs';
+import { getLocalStorage, setLocalStorage } from './utils.mjs';
 import ExternalServices from './ExternalServices.mjs';
 
 const services = new ExternalServices();
@@ -114,12 +114,11 @@ export default class CheckoutProcess {
 
   /**
    * Package the form to json and use ExternalServices to send it
-   * @param {Event} event
    */
   async checkout() {
     const formElement = document.forms['checkout'];
-    const json = formDataToJSON(formElement);
-    json.orderDate = new Date().toISOString();
+    const json = formDataToJSON(formElement);  // Why do they keep calling this JSON? It's an object!
+    json.orderDate = new Date().toISOString();  // This is the format the example object shows
     json.orderTotal = this.orderTotal;
     json.tax = this.tax;
     json.shipping = this.shipping;
@@ -127,7 +126,9 @@ export default class CheckoutProcess {
     //console.log(json);
     try {
       const res = await services.checkout(json);
-      alert(res.message);
+      setLocalStorage('so-cart', []); // Clear out the cart
+      window.location = '/checkout/success.html'; // Tell them what they won
+      //alert(res.message);
       console.log(res);  //TODO: Remove log
     } catch (err) {
       console.log(err); //TODO: Remove log

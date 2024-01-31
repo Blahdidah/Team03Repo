@@ -11,12 +11,7 @@ async function convertToJson(res) {
     return await res.json();
   } else {
     let responseObject = await res.json();
-    let responseText = '';
-    for(let key in responseObject) {
-      responseText += ` ${key}: ${responseObject[key]}`;
-    }
-    
-    throw new Error(`Bad Response ${responseText}`);
+    throw {name: 'servicesError', message: responseObject};
   }
 }
 
@@ -75,7 +70,7 @@ export default class ExternalServices {
     return product.Result;
   }
   async checkout(payload) {
-    console.log(payload);
+    //console.log(payload);
     const options = {
       method: 'POST',
       headers: {
