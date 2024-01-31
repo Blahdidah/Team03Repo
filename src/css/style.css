@@ -314,6 +314,27 @@ ul li span:hover {
 .input-set *:last-child {
   border-radius: 0 .5em .5em 0;
 }
+.checkout-group {
+  display: flex;
+  flex-direction: column;
+  gap: 1em;
+}
+.checkout-form, .checkout-items {
+  border-radius: .5em;
+  background-color: #0001;
+  gap: .5em;
+  padding: 1em;
+}
+.checkout-form {
+  display: flex;
+  flex-direction: column;
+}
+.checkout-items {
+  display: flex;
+  flex-direction: column;
+  gap: .5em;
+}
+
 
 @media screen and (min-width: 500px) {
   body {
@@ -329,6 +350,10 @@ ul li span:hover {
   }
   .product-categories {
     grid-template-columns: 1fr 1fr 1fr 1fr;
+  }
+  .checkout-form {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
   }
 }
 
