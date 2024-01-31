@@ -69,6 +69,7 @@ export default class ExternalServices {
     return product.Result;
   }
   async checkout(payload) {
+    console.log(payload);
     const options = {
       method: 'POST',
       headers: {

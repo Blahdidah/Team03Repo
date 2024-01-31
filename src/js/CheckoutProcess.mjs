@@ -27,7 +27,7 @@ function formDataToJSON(formElement) {
   formInfo.forEach(function (value, key) {
     convertedJSON[key] = value;
   });
-  console.log(convertedJSON);
+  //console.log(convertedJSON);
   return convertedJSON;
 }
 
@@ -123,7 +123,7 @@ export default class CheckoutProcess {
     //console.log(json);
     try {
       const res = await services.checkout(json);
-      console.log(res.body);
+      //console.log(res);
     } catch (err) {
       console.log(err);
     }
