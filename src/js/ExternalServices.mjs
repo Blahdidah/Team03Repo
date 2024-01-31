@@ -6,11 +6,17 @@ const baseURL = import.meta.env.VITE_SERVER_URL;
  * @param {Response} res
  * @returns {Promise<Object>}
  */
-function convertToJson(res) {
+async function convertToJson(res) {
   if (res.ok) {
-    return res.json();
+    return await res.json();
   } else {
-    throw new Error('Bad Response');
+    let responseObject = await res.json();
+    let responseText = '';
+    for(let key in responseObject) {
+      responseText += ` ${key}: ${responseObject[key]}`;
+    }
+    
+    throw new Error(`Bad Response ${responseText}`);
   }
 }
 
@@ -33,15 +39,21 @@ export default class ExternalServices {
   async getData(category) {
     let data = [];
 
-    if(category.toLowerCase() == 'all') { // Return the whole thing. If I can figure our how to get the api to accept search queries, I can improve this.
-      for (let _category of ['tents', 'backpacks', 'hammocks', 'sleeping-bags']) {
+    if (category.toLowerCase() == 'all') {
+      // Return the whole thing. If I can figure our how to get the api to accept search queries, I can improve this.
+      for (let _category of [
+        'tents',
+        'backpacks',
+        'hammocks',
+        'sleeping-bags',
+      ]) {
         let response = await fetch(baseURL + `products/search/${_category}`);
         let responseData = await convertToJson(response);
         data = data.concat(responseData.Result); // Append the new data
       }
       //console.log(data.Result);
-    }
-    else { // Just load one category
+    } else {
+      // Just load one category
       let response = await fetch(baseURL + `products/search/${category}`);
       let responseData = await convertToJson(response);
       data = responseData.Result;
@@ -57,20 +69,20 @@ export default class ExternalServices {
   async findProductById(id) {
     const response = await fetch(baseURL + `product/${id}`);
     const product = await convertToJson(response);
-    
+
     //const products = await this.getData();
     //this.product = product.Result.find((item) => item.Id === id);
     return product.Result;
   }
   async checkout(payload) {
+    console.log(payload);
     const options = {
-      method: "POST",
+      method: 'POST',
       headers: {
-        "Content-Type": "application/json",
+        'Content-Type': 'application/json',
       },
       body: JSON.stringify(payload),
     };
-    return await fetch(baseURL + "checkout/", options).then(convertToJson);
+    return await fetch(baseURL + 'checkout/', options).then(convertToJson);
   }
-
 }
