@@ -11,3 +11,7 @@ document.addEventListener('click', function (event) {
     shoppingCart.removeItemFromCart(itemId);
   }
 });
+
+document.getElementById('cart_submit').addEventListener('click', () => {
+  window.location.href = '/checkout/';
+});

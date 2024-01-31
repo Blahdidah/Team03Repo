@@ -1,6 +1,6 @@
 // Class and helper functions to render a list of products on the root index.html
 
-import ProductData from './ProductData.mjs'; // For intellisense purposes
+import ExternalServices from './ExternalServices.mjs'; // For intellisense purposes
 import { renderListWithTemplate, initialUpper } from './utils.mjs';
 
 /**
@@ -29,7 +29,7 @@ export default class ProductListing {
   /**
    * Set the category, dataSource and listElement properties.
    * @param {String} category
-   * @param {ProductData} dataSource
+   * @param {ExternalServices} dataSource
    * @param {HTMLElement} listElement
    * @param {Array} keyWords
    */

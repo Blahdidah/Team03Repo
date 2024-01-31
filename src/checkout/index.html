@@ -1,28 +1,52 @@
 <!DOCTYPE html>
 
 <html lang="en">
-  <head>
-    <meta charset="UTF-8" />
 
-    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<head>
+  <meta charset="UTF-8" />
 
-    <title>Sleep Outside | Checkout</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
 
-    <link rel="stylesheet" href="../css/style.css" />
-    <script src="../js/checkout.js" type="module"></script>
-  </head>
+  <title>Sleep Outside | Checkout</title>
 
-  <body>
-    <header class="divider" id="page-header">
+  <link rel="stylesheet" href="../css/style.css" />
+  <script src="../js/checkout.js" type="module"></script>
+</head>
+
+<body>
+  <header class="divider" id="page-header">
+
+  </header>
+
+  <main class="divider">
+    <section class="products">
+      <h2>Review & Place your Order</h2>
+    </section>
+    <section>
+      <form name="order_form" id="order_form" class="user-info">
+        <label>First Name</label><input type="text" name="fname" value="John">
+        <label>Last Name</label><input type="text" name="lname" value="Doe">
+        <label>Street Address</label><input type="text" name="street" value="123 Street Rd.">
+        <label>City</label><input type="text" name="city" value="Potato">
+        <label>State</label><input type="text" name="state" value="Idaho">
+        <label>Zip Code</label><input type="text" name="zip" value="97654" pattern="^\d{5}(-\d{4})?$">
+        <label>Credit Card Number</label><input type="text" name="cardNumber" value="1234123412341234" pattern="^\d{16}$">
+        <label>Expiration Date</label><input type="text" name="expiration" value="4/28" pattern="^(0[1-9]|[1-9]|1[0-2])\/\d{2}$">
+        <label>Security Code</label><input type="number" name="code" min="000" max="999" value="123">
+        
+        <label>Subtotal</label><input readonly value="$0.00" name="subtotal">
+        <label>Shipping Estimate</label><input readonly value="$0.00" name="shipping">
+        <label>Tax</label><input readonly value="$0.00" name="tax">
+        <label>Order Total</label><input readonly value="$0.00" name="subtotal">
       
-    </header>
+        <input type="submit" id="checkout_button">
 
-    <main class="divider">
-      <section class="products">
-        <h2>Review & Place your Order</h2>
-      </section>
-    </main>
+      </form>
 
-    <footer id="page-footer"></footer>
-  </body>
+    </section>
+  </main>
+
+  <footer id="page-footer"></footer>
+</body>
+
 </html>

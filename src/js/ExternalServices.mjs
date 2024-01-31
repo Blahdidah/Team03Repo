@@ -18,7 +18,7 @@ function convertToJson(res) {
 /**
  * A class to hold a list of object representing products
  */
-export default class ProductData {
+export default class ExternalServices {
   /**
    * Sets the category and path where the json data is located.
    */
@@ -62,5 +62,22 @@ export default class ProductData {
     //const products = await this.getData();
     //this.product = product.Result.find((item) => item.Id === id);
     return product.Result;
+  }
+
+  /**
+   * Post the checkoutData to the checkout API.
+   * @param {Object} checkoutData 
+   */
+  async checkout(checkoutData) {
+
+    let response = await fetch(`${baseURL}checkout/`, {
+      method: 'POST',
+      headers: {
+        'Content-Type': 'application/json'
+      },
+      body: checkoutData,
+    });
+    let json = await response.json();
+    console.log(json);
   }
 }
