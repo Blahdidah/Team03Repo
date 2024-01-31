@@ -123,7 +123,8 @@ export default class CheckoutProcess {
     //console.log(json);
     try {
       const res = await services.checkout(json);
-      //console.log(res);
+      alert(res.message);
+      console.log(res);
     } catch (err) {
       console.log(err);
     }

@@ -6,11 +6,11 @@ const baseURL = import.meta.env.VITE_SERVER_URL;
  * @param {Response} res
  * @returns {Promise<Object>}
  */
-function convertToJson(res) {
+async function convertToJson(res) {
   if (res.ok) {
-    return res.json();
+    return await res.json();
   } else {
-    throw new Error('Bad Response');
+    throw new Error(`Bad Response ${await res.json()}`);
   }
 }
 
