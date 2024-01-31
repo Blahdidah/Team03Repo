@@ -1,11 +1,14 @@
 import { getLocalStorage } from './utils.mjs';
 import ExternalServices from './ExternalServices.mjs';
-import ShoppingCart from './ShoppingCart.mjs';
 
 const services = new ExternalServices();
 
+/**
+ * Convert the list of products from localStorage to the simpler form required for the checkout process. Array.map would be perfect for this.
+ * @param {Array<Object>} items 
+ * @returns {Array<Object}
+ */
 function packageItems(items) {
-  // convert the list of products from localStorage to the simpler form required for the checkout process. Array.map would be perfect for this.
   const simplifiedItems = items.map((item) => ({
       id: item.Id,
       name: item.Name,
@@ -41,10 +44,10 @@ export default class CheckoutProcess {
    * @param {String} outputSelector String to select the output parent element
    */
   constructor(key, outputSelector) {
-    this.key = key;
-    this.outputSelector = outputSelector;
-    this.list = [];
-    this.tax = 0;
+    this.key = key; // Shopping cart local storage key.
+    this.outputSelector = outputSelector; // Query string to find the output element
+    this.list = []; // The shopping cart items go here.
+    this.tax = 0; 
     this.ship = 0;
     this.itemTotal = 0;
     this.orderTotal = 0;
@@ -59,11 +62,10 @@ export default class CheckoutProcess {
    * calculate and display the total amount of the items in the cart, and the number of items.
    */
   calculateItemSummary() {
-
     /** @type {Array<Object>} */
     this.itemTotal = this.list.reduce((sum, item) => sum + parseFloat(item.FinalPrice), 0);
     const outputElement = document.querySelector('#items');
-    this.list.forEach((item) => {
+    this.list.forEach((item) => { // Add each item to the output element
       const newItemElement = document.createElement('div');
       newItemElement.innerText = item.Name;
       newItemElement.insertAdjacentHTML('afterbegin', `<input type="hidden" name="id" value="${item.Id}"> `);
@@ -74,7 +76,7 @@ export default class CheckoutProcess {
     })
     outputElement.insertAdjacentHTML('beforeend', `Total Items: ${this.list.length}`);
     document.querySelector('#subtotal').value = `$${this.itemTotal.toFixed(2)}`;
-    
+    //TODO: Clean this up when we know this works
     // const summaryElement = document.querySelector(this.outputSelect + '#orderTotal');
     // const itemNum = document.querySelector(this.outputSelector + '#cartTotal');
     // itemNum.innerText = this.list.length;
@@ -88,7 +90,6 @@ export default class CheckoutProcess {
    * // calculate the shipping and tax amounts. Then use them to along with the cart total to figure out the order total
    */
   calculateOrderTotal() {
-    console.log('calculateOrderTotals()');
     this.ship = 10 + (this.list.length - 1) * 2;
     this.tax = (this.itemTotal * 0.06).toFixed(2);
     this.orderTotal = (
@@ -98,6 +99,7 @@ export default class CheckoutProcess {
     ).toFixed(2);
     this.displayOrderTotals();
   }
+
   /**
    * Once the totals are all calculated display them in the order summary page
    */
@@ -109,8 +111,10 @@ export default class CheckoutProcess {
     tax.value = `$${this.tax}`;
     orderTotal.value = `$${this.orderTotal}`;
   }
+
   /**
    * Package the form to json and use ExternalServices to send it
+   * @param {Event} event
    */
   async checkout() {
     const formElement = document.forms['checkout'];
@@ -124,9 +128,9 @@ export default class CheckoutProcess {
     try {
       const res = await services.checkout(json);
       alert(res.message);
-      console.log(res);
+      console.log(res);  //TODO: Remove log
     } catch (err) {
-      console.log(err);
+      console.log(err); //TODO: Remove log
     }
   }
 }

@@ -1,6 +1,5 @@
 import { loadHeaderFooter } from './utils.mjs';
 import CheckoutProcess from './CheckoutProcess.mjs';
-import { doc } from 'prettier';
 
 loadHeaderFooter('partials');
 const myCheckout = new CheckoutProcess('so-cart', '.checkout-summary');
