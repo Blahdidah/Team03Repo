@@ -120,6 +120,9 @@ export default class CheckoutProcess {
    */
   async checkout() {
     const formElement = document.forms['checkout'];
+    if(!this.validateForm(formElement)){
+      return;
+    }
     const json = formDataToJSON(formElement);
     json.orderDate = new Date().toISOString();
     json.orderTotal = this.orderTotal;
@@ -155,4 +158,16 @@ export default class CheckoutProcess {
     document.querySelector(this.outputSelector + ' #orderTotal').value = '';
     shoppingCart.clearCart();
   }
+  validateForm(formElement){
+    const requiredFields = formElement.querySelectorAll('[required]');
+    for (const field of requiredFields) {
+      if (!field.value.trim()) {
+        let errorMessage = `Invalid ${field.name}`;
+        alertMessage(errorMessage);
+        return false;
+      }
+    }
+
+    return true;
+    }
 }
