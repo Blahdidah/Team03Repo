@@ -13,7 +13,6 @@ document.addEventListener('click', function (event) {
 });
 
 document.addEventListener('DOMContentLoaded', function() {
-  console.log('I am triggering')
   const clearCartButton = document.getElementById('clearCartButton');
   if (clearCartButton){
     clearCartButton.addEventListener('click', function(){
