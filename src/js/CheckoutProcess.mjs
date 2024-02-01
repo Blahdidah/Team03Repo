@@ -1,4 +1,4 @@
-import { getLocalStorage, setLocalStorage } from './utils.mjs';
+import { alertMessage, getLocalStorage, setLocalStorage } from './utils.mjs';
 import ExternalServices from './ExternalServices.mjs';
 
 const services = new ExternalServices();
@@ -128,10 +128,10 @@ export default class CheckoutProcess {
       const res = await services.checkout(json);
       setLocalStorage('so-cart', []); // Clear out the cart
       window.location = '/checkout/success.html'; // Tell them what they won
-      //alert(res.message);
-      console.log(res);  //TODO: Remove log
     } catch (err) {
-      console.log(err); //TODO: Remove log
+      for(const key in err.message) { // Make an alert for each incorrect field
+        alertMessage(err.message[key]);
+      }
     }
   }
 }

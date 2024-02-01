@@ -318,14 +318,28 @@ ul li span:hover {
   display: flex;
   flex-direction: column;
   gap: 1em;
+  padding: 1em;
 }
 .checkout-group input {
   border-radius: 2px;
-  border: 1px solid green;
+  border: 1px solid rgb(19, 211, 19);
   padding: .5em;
+  transition: transform .5s;
+}
+.checkout-group input:focus {
+  transform: scale(1.03);
+  transition: transform .5s;
 }
 .checkout-group input:invalid {
   border: 1px solid red;
+}
+.checkout-group input:placeholder-shown {
+  color: rgb(238, 238, 238);
+}
+.checkout-form input:read-only {
+  pointer-events: none;
+  border-color: rgb(205, 205, 205);
+  background-color: unset;
 }
 
 .checkout-form, .checkout-items {
@@ -343,7 +357,27 @@ ul li span:hover {
   flex-direction: column;
   gap: .5em;
 }
-
+.alert-box {
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
+  background-color: var(--primary-color);
+  padding: .5em;
+  border-bottom: 2px solid rgb(255, 119, 0);
+  overflow: hidden;
+}
+.alert-box > input[type="button"] {
+  background-color: unset;
+  border: unset;
+  font-size: 1em;
+  font-weight: bold;
+  transition: transform .5s;
+}
+.alert-box > input[type="button"]:hover {
+  color: var(--secondary-color);
+  transform: scale(1.2);
+  transition: transform .5s;
+}
 
 @media screen and (min-width: 500px) {
   body {

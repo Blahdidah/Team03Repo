@@ -1,4 +1,4 @@
-import { loadHeaderFooter } from './utils.mjs';
+import { alertMessage, loadHeaderFooter } from './utils.mjs';
 import CheckoutProcess from './CheckoutProcess.mjs';
 
 loadHeaderFooter('partials');
@@ -19,6 +19,9 @@ document.querySelector('#checkoutSubmit').addEventListener('click', (event) => {
 
   if (checkoutForm.checkValidity()) {
     myCheckout.checkout();
+  }
+  else {
+    alertMessage('Correct invalid values before resubmitting.');
   }
 });
 

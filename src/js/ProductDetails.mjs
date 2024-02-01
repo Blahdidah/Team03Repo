@@ -1,6 +1,7 @@
 // A class to handle displaying a single product
 
 import {
+  alertMessage,
   getLocalStorage,
   itemToCartAnimate,
   setLocalStorage,
@@ -45,6 +46,7 @@ export default class ProductDetails {
    */
   addToCart(event) {
     //construct an existing cart, check if it is an array
+    alertMessage(`${this.product.Name} added to cart`, undefined, undefined,undefined, 5);
     let existingCart = getLocalStorage('so-cart') || [];
     if (!Array.isArray(existingCart)) {
       existingCart = [];

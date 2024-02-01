@@ -1,4 +1,4 @@
-import { convertToJson } from './utils.mjs';
+import { alertMessage, convertToJson } from './utils.mjs';
 
 export default class Alert {
   /**
@@ -20,19 +20,12 @@ export default class Alert {
           let alertsElement = document.createElement('section');
           alertsElement.classList.add('alert-list');
           for (let alert of alertData) {
-            // Create alert <p>
-            let alertElement = document.createElement('p');
-            alertElement.innerHTML = alert.message;
-            alertElement.style.backgroundColor = alert.background;
-            alertElement.style.color = alert.color;
-            // append it to alertsElement
-            alertsElement.append(alertElement);
+            alertMessage(alert.message, false, alert.background, alert.color);
           }
-          document.querySelector('main').prepend(alertsElement);
         }
       })
-      .catch(() => { 
+      .catch(() => {
         //No action necessary. Just won't show any alerts.
-    });
+      });
   }
 }

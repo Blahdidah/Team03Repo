@@ -206,6 +206,11 @@ export function itemToCartAnimate(originElement, targetElement, duration) {
     });
 }
 
+/**
+ * 
+ * @param {Response} res 
+ * @returns {Object}
+ */
 export function convertToJson(res) {
   if (res.ok) {
     return res.json();
@@ -213,6 +218,7 @@ export function convertToJson(res) {
     throw new Error('Bad Response');
   }
 }
+
 /**
  * Makes the first character upper case
  * @param {String} string 
@@ -220,4 +226,70 @@ export function convertToJson(res) {
  */
 export function initialUpper(string) {
   return string.charAt(0).toUpperCase() + string.slice(1);
+}
+
+/**
+ * Show an alert at the top of the page body
+ * @param {string} message 
+ * @param {boolean} scroll 
+ * @param {string} background The background color of the alert
+ * @param {string} foreground The foreground color of the alert
+ * @param {number} ttl time to live before alert is removed
+ * @returns {HTMLElement}
+ */
+export function alertMessage(message, scroll = true, background = 'default', foreground = 'default', ttl = 0) {
+  const alertBox = document.createElement('div');
+  const messageSpan = document.createElement('span');
+  const closeButton = document.createElement('input');
+
+  messageSpan.innerText = message;
+  closeButton.value = 'X';
+  closeButton.type = 'button';
+  closeButton.addEventListener('click', () => {
+    alertBox.remove();
+  });
+
+  alertBox.append(messageSpan);
+  alertBox.append(closeButton);
+
+  alertBox.classList.add('alert-box'); // Set the background if specified
+  if (background != 'default') {
+    alertBox.style.backgroundColor = background;
+  }
+  if (foreground != 'default') {
+    // Set the foreground if specified
+    alertBox.style.color = foreground;
+    closeButton.style.color = foreground;
+  }
+
+  document.querySelector('main').insertAdjacentElement('afterbegin', alertBox); // Display the message box
+
+  if (ttl > 0) {
+    // Set it up to disappear after a time specified
+    setTimeout(() => {
+      alertBox.animate(
+        // TODO: Figure out how to make this smoother
+        [
+          {
+            padding: '.5em',
+          },
+          {
+            height: '0px',
+            padding: '0em',
+          },
+        ],
+        {
+          duration: 250,
+        }
+      ).onfinish = () => alertBox.remove();
+    }, ttl * 1000);
+  }
+
+  if (scroll) {
+    window.scrollTo({
+      top: 0,
+      behavior: 'smooth',
+    });
+  }
+  return alertBox; // Might want to check it for something
 }
