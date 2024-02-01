@@ -1,7 +1,9 @@
 import { getLocalStorage } from './utils.mjs';
 import ExternalServices from './ExternalServices.mjs';
+import ShoppingCart from './ShoppingCart.mjs';
 
 const services = new ExternalServices();
+const shoppingCart = new ShoppingCart();
 
 /**
  * Convert the list of products from localStorage to the simpler form required for the checkout process. Array.map would be perfect for this.
@@ -146,5 +148,6 @@ export default class CheckoutProcess {
     document.querySelector(this.outputSelector + ' #shipping').value = '';
     document.querySelector(this.outputSelector + ' #tax').value = '';
     document.querySelector(this.outputSelector + ' #orderTotal').value = '';
+    shoppingCart.clearCart();
   }
 }
