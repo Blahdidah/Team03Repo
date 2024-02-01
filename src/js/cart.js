@@ -11,7 +11,18 @@ document.addEventListener('click', function (event) {
     shoppingCart.removeItemFromCart(itemId);
   }
 });
-if (cart.total > 0) {
+
+document.addEventListener('DOMContentLoaded', function() {
+  console.log('I am triggering')
+  const clearCartButton = document.getElementById('clearCartButton');
+  if (clearCartButton){
+    clearCartButton.addEventListener('click', function(){
+      shoppingCart.clearCart();
+    })
+  }
+})
+
+if (shoppingCart.total > 0) {
   // show our checkout button and total if there are items in the cart.
   document.querySelector(".total-hide").classList.remove("hide");
-}
+};

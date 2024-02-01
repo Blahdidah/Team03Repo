@@ -131,10 +131,9 @@ export function updateCartCountIcon(cartDiv) {
   let cart = getLocalStorage('so-cart');
   let countIcon = cartDiv.querySelector('.count-icon');
 
-  if (cart.length) {
-    //Truthy
-    if (countIcon) {
-      countIcon.innerText = `${cart.length}`;
+  if(cart && cart.length){
+    if(countIcon){
+      countIcon.innerText = `${cart.length}`
     } else {
       countIcon = document.createElement('div'); // Make a new one
       countIcon.classList.add('count-icon'); // So we can find it later and style it

@@ -127,10 +127,24 @@ export default class CheckoutProcess {
     //console.log(json);
     try {
       const res = await services.checkout(json);
+      this.clearCart();
       alert(res.message);
       console.log(res);  //TODO: Remove log
     } catch (err) {
       console.log(err); //TODO: Remove log
     }
+  }
+  clearCart(){
+    this.list=[];
+    this.tax = 0;
+    this.shipping = 0;
+    this.itemTotal = 0;
+    this.orderTotal = 0;
+    const outputElement = document.querySelector('#items');
+    outputElement.innerHTML = '';
+    document.querySelector('#subtotal').value = '';
+    document.querySelector(this.outputSelector + ' #shipping').value = '';
+    document.querySelector(this.outputSelector + ' #tax').value = '';
+    document.querySelector(this.outputSelector + ' #orderTotal').value = '';
   }
 }
