@@ -1,6 +1,6 @@
-import { getLocalStorage } from './utils.mjs';
+import { getLocalStorage, alertMessage, removeAllAlerts } from './utils.mjs';
 import ExternalServices from './ExternalServices.mjs';
-import ShoppingCart from './ShoppingCart.mjs';
+import ShoppingCart from './ShoppingCart.mjs'; //not sure if we need this, we'll see
 
 const services = new ExternalServices();
 const shoppingCart = new ShoppingCart();
@@ -126,16 +126,21 @@ export default class CheckoutProcess {
     json.tax = this.tax;
     json.shipping = this.shipping;
     json.items = packageItems(this.list);
-    //console.log(json);
+    console.log(json);
     try {
       const res = await services.checkout(json);
+      console.log(res);
       this.clearCart();
-      alert(res.message);
-      console.log(res);  //TODO: Remove log
+      location.assign("/checkout/success.html");
+      
     } catch (err) {
-      console.log(err); //TODO: Remove log
+      removeAllAlerts();
+      for (let message in err.message) {
+        alertMessage(err.message[message]);
     }
+    console.log(err);
   }
+}
   clearCart(){
     this.list=[];
     this.tax = 0;
