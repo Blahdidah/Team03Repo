@@ -7,17 +7,24 @@ const baseURL = import.meta.env.VITE_SERVER_URL;
  * @returns {Promise<Object>}
  */
 async function convertToJson(res) {
-  if (res.ok) {
-    return await res.json();
+  //parsing the response as JSON
+  try{
+    const responseObject = await res.json();
+    if (res.ok) {
+    return responseObject;
   } else {
-    let responseObject = await res.json();
     let responseText = '';
     for(let key in responseObject) {
       responseText += ` ${key}: ${responseObject[key]}`;
     }
-    
-    throw new Error(`Bad Response ${responseText}`);
+    const error = new Error('Bad Response');
+    error.name = 'servicesError'
+    error.message = responseText;
+    throw error;
   }
+}catch (error){
+  throw new Error(`Error parsing response as JSON: ${error.message}`)
+}
 }
 
 /**
