@@ -160,14 +160,15 @@ export default class CheckoutProcess {
   }
   validateForm(formElement){
     const requiredFields = formElement.querySelectorAll('[required]');
+    let hasErrors = false;
     for (const field of requiredFields) {
       if (!field.value.trim()) {
-        let errorMessage = `Invalid ${field.name}`;
-        alertMessage(errorMessage);
-        return false;
+        alertMessage(`Invalid ${field.getAttribute('label')}`)
+        hasErrors = true;
+        
       }
     }
 
-    return true;
+    return !hasErrors;
     }
 }

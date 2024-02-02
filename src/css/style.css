@@ -216,11 +216,16 @@ ul li span:hover {
 }
 #cart-total{
   display:grid;
-  grid-template-columns: 150px auto 15%;
+  grid-template-columns: 150px auto 30%;
   flex-direction:row;
   justify-content:end;
-  gap:100px;
-  width: 60%;
+  column-gap:100px;
+}
+#checkoutButton a{
+  text-decoration:none;
+}
+#clear-cart{
+  grid-column:3;
 }
 .count-icon {
   position: absolute;
@@ -346,9 +351,12 @@ justify-content:space-between;
 }
 .alert > p{
 margin:0px;
+font-weight: bold;
 }
 .alert span{
   cursor:pointer;
+  font-weight: bold;
+
 }
 
 @media screen and (min-width: 500px) {
