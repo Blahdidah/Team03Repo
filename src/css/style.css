@@ -223,7 +223,7 @@ ul li span:hover {
 #checkoutButton a {
   text-decoration: none;
 }
-#clear-cart {
+#clearCart {
   grid-column: 3;
 }
 .count-icon {
