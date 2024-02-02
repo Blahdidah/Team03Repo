@@ -184,6 +184,9 @@ ul li span:hover {
 .color-swatch-box{
   width:60px;
 }
+.selected{
+  border-color: red;
+}
 /* Start cart list card styles */
 .cart-card {
   display: grid;

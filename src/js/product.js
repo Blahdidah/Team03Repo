@@ -10,4 +10,8 @@ const productId = getParam('product');
 const product = new ProductDetails(productId, dataSource);
 product.init();
 
+console.log(product);
+
+//document.addEventListener('click', product.selectColor(color));
+
 //updateCartCountIcon(document.querySelector('.cart'));

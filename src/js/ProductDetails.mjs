@@ -65,16 +65,35 @@ export default class ProductDetails {
 
     updateCartCountIcon(cart);
   }
-colorSwatches(product){
-    if(product.Colors && product.Colors.length >1){
-      console.log(product.Colors.map);
-      return product.Colors.map(colors => 
-      `<div class="color-swatch-box">
-          <img src="${colors.ColorChipImageSrc}" alt="${colors.ColorName}" title="${colors.ColorName}" />
-          <p>${colors.ColorName}</p>
-        </div>`).join('');
-        
-    }else{
+  colorSwatches(product) {
+    if (product.Colors && product.Colors.length > 1) {
+      const colorSwatchContainer = document.createElement('div');
+      colorSwatchContainer.classList.add('color-swatch-container');
+
+  
+      product.Colors.forEach(color => {
+        const swatch = document.createElement('div');
+        swatch.classList.add('color-swatch-box');
+        swatch.setAttribute('data-color', color.ColorName); // Add this line
+  
+        const swatchImage = document.createElement('img');
+        swatchImage.src = color.ColorChipImageSrc;
+        swatchImage.alt = color.ColorName;
+        swatchImage.title = color.ColorName;
+        console.log(swatch);
+        // Add click event listener to each swatch
+        swatch.addEventListener('click', () => this.selectColor(color));
+
+      const swatchName = document.createElement('p');
+      swatchName.innerText = color.ColorName;
+
+    swatch.appendChild(swatchImage);
+    swatch.appendChild(swatchName);
+    colorSwatchContainer.appendChild(swatch);
+      });
+  
+      return colorSwatchContainer.outerHTML;
+    } else {
       return '';
     }
   }
