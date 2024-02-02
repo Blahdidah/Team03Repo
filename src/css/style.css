@@ -179,6 +179,10 @@ ul li span:hover {
 }
 .colorSwatch{
   display:flex;
+  justify-content: space-evenly;
+}
+.color-swatch-box{
+  width:60px;
 }
 /* Start cart list card styles */
 .cart-card {

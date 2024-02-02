@@ -69,8 +69,9 @@ colorSwatches(product){
     if(product.Colors && product.Colors.length >1){
       console.log(product.Colors.map);
       return product.Colors.map(colors => 
-      `<div class="color-swatch">
+      `<div class="color-swatch-box">
           <img src="${colors.ColorChipImageSrc}" alt="${colors.ColorName}" title="${colors.ColorName}" />
+          <p>${colors.ColorName}</p>
         </div>`).join('');
         
     }else{
@@ -103,7 +104,6 @@ colorSwatches(product){
         <p class="product-card__price" id="our-price">Our Price: $${this.product.ListPrice.toFixed(2)}</p>
         <div class='colorSwatch'>
         ${colorSwatches}
-        <p class="product__color">${this.product.Colors[0].ColorName}</p>
         </div>
 
         <p class="product__description">${this.product.DescriptionHtmlSimple}
