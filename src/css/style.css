@@ -240,6 +240,25 @@ ul li span:hover {
   pointer-events: none;
   text-shadow: 0 0 0.3em #320;
 }
+#fname, #lname, #city, #state, #street {
+  text-transform: capitalize;
+}
+form input:invalid {
+  box-shadow: 2px 2px var(--primary-color);
+}
+form input:valid {
+  box-shadow: 2px 2px var(--secondary-color);
+}
+.checkout-alert {
+  display: block;
+  background-color: var(--primary-color);
+  color: var(--dark-grey);
+}
+#success {
+  text-align: center;
+  margin: 8%;
+  padding: 8%;
+}
 .alert-list > p {
   padding: .5em;
   margin: 0;
