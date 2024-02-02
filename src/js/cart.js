@@ -1,4 +1,4 @@
-import {loadHeaderFooter} from './utils.mjs';
+import { loadHeaderFooter } from './utils.mjs';
 import ShoppingCart from './ShoppingCart.mjs';
 
 const shoppingCart = new ShoppingCart();
@@ -12,16 +12,16 @@ document.addEventListener('click', function (event) {
   }
 });
 
-document.addEventListener('DOMContentLoaded', function() {
+document.addEventListener('DOMContentLoaded', function () {
   const clearCartButton = document.getElementById('clearCartButton');
-  if (clearCartButton){
-    clearCartButton.addEventListener('click', function(){
+  if (clearCartButton) {
+    clearCartButton.addEventListener('click', function () {
       shoppingCart.clearCart();
-    })
+    });
   }
-})
+});
 
 if (shoppingCart.total > 0) {
   // show our checkout button and total if there are items in the cart.
-  document.querySelector(".total-hide").classList.remove("hide");
-};
+  document.querySelector('.total-hide').classList.remove('hide');
+}

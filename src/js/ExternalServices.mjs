@@ -8,23 +8,23 @@ const baseURL = import.meta.env.VITE_SERVER_URL;
  */
 async function convertToJson(res) {
   //parsing the response as JSON
-  try{
+  try {
     const responseObject = await res.json();
     if (res.ok) {
-    return responseObject;
-  } else {
-    let responseText = '';
-    for(let key in responseObject) {
-      responseText += ` ${key}: ${responseObject[key]}`;
+      return responseObject;
+    } else {
+      let responseText = '';
+      for (let key in responseObject) {
+        responseText += ` ${key}: ${responseObject[key]}`;
+      }
+      const error = new Error('Bad Response');
+      error.name = 'servicesError';
+      error.message = responseText;
+      throw error;
     }
-    const error = new Error('Bad Response');
-    error.name = 'servicesError'
-    error.message = responseText;
-    throw error;
+  } catch (error) {
+    throw new Error(`Error parsing response as JSON: ${error.message}`);
   }
-}catch (error){
-  throw new Error(`Error parsing response as JSON: ${error.message}`)
-}
 }
 
 /**
