@@ -177,7 +177,9 @@ ul li span:hover {
 .product-detail img {
   width: 100%;
 }
-
+.colorSwatch{
+  display:flex;
+}
 /* Start cart list card styles */
 .cart-card {
   display: grid;

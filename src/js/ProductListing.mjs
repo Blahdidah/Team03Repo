@@ -108,6 +108,7 @@ export default class ProductListing {
    * @param {Array<Object>} productList
    */
   renderList(productList) {
+    console.log(productList);
     renderListWithTemplate(
       productCardTemplate,
       this.listElement,

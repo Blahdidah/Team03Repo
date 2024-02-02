@@ -65,12 +65,23 @@ export default class ProductDetails {
 
     updateCartCountIcon(cart);
   }
-
+colorSwatches(product){
+    if(product.Colors && product.Colors.length >1){
+      console.log(product.Colors.map);
+      return product.Colors.map(colors => 
+      `<div class="color-swatch">
+          <img src="${colors.ColorChipImageSrc}" alt="${colors.ColorName}" title="${colors.ColorName}" />
+        </div>`).join('');
+        
+    }else{
+      return '';
+    }
+  }
   /**
    * Render the template to the page
    */
   renderProductDetails() {
-    
+    const colorSwatches = this.colorSwatches(this.product);
     const discount = (1 - (this.product.ListPrice / this.product.SuggestedRetailPrice)) * 100;
     const details = document.querySelector('.product-detail');
     const template = `<h3>${this.product.Brand.Name}</h3>
@@ -90,8 +101,10 @@ export default class ProductDetails {
         <p class="product-card__price" id="msrp">MSRP: $${this.product.SuggestedRetailPrice.toFixed(2)}</p>
         <p class="product-card__price" id="discount-percent">Discounted ${discount.toFixed(0)}%</p>
         <p class="product-card__price" id="our-price">Our Price: $${this.product.ListPrice.toFixed(2)}</p>
-
+        <div class='colorSwatch'>
+        ${colorSwatches}
         <p class="product__color">${this.product.Colors[0].ColorName}</p>
+        </div>
 
         <p class="product__description">${this.product.DescriptionHtmlSimple}
         
