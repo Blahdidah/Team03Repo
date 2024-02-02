@@ -426,6 +426,24 @@ ul li span:hover {
   justify-content: center;
   height: 100%;
 }
+.slide_in_to_right {
+  animation: slide_right_bounce 1s 1 forwards ease-out;
+}
+@keyframes slide_right_bounce {
+  0% {
+    transform: translateX(-55vw);
+  }
+  80% {
+    transform: translateX(15px);
+  }
+  95% {
+    transform: translateX(-10px);
+  }
+  100% {
+    transform: translateX(0);
+  }
+  
+}
 
 
 
