@@ -221,21 +221,27 @@ export function initialUpper(string) {
   return string.charAt(0).toUpperCase() + string.slice(1);
 }
 
-export function alertMessage(message, scroll = true, duration = 3000) {
-  const alert = document.createElement("div");
-  alert.classList.add("alert");
-  alert.innerHTML = `<p>${message}</p> <span>X</span>`;
-  const main = document.querySelector("main");
-  main.prepend(alert);
-  if (scroll) window.scrollTo(0, 0);
-
-  alert.addEventListener("click", function (e) {
-    if (e.target.tagName == "SPAN") {
-      main.removeChild(this);
-    }
-  });
+export function alertMessage(message, scroll = true, duration = 60000) {
+    const main = document.querySelector('main');
   
-}
+    const alert = document.createElement("div");
+    alert.classList.add("alert");
+    alert.innerHTML = `<p>${message}</p> <span>X</span>`;
+  
+    alert.addEventListener("click", function (e) {
+      if (e.target.tagName === "SPAN") {
+        main.removeChild(this);
+      }
+    });
+  
+    // Prepend the new alert at the top of the main container
+    main.insertAdjacentElement('afterbegin', alert);
+  
+    // Optionally, scroll to the new alert
+    if (scroll) {
+      alert.scrollIntoView();
+    }
+  }
 
 export function removeAllAlerts() {
   const alerts = document.querySelectorAll(".alert");

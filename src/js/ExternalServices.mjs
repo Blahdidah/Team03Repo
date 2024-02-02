@@ -1,3 +1,4 @@
+import { alertMessage } from "./utils.mjs";
 // A Class and helper functions to handle collections of products
 const baseURL = import.meta.env.VITE_SERVER_URL;
 
@@ -10,20 +11,21 @@ async function convertToJson(res) {
   //parsing the response as JSON
   try {
     const responseObject = await res.json();
-    if (res.ok) {
-      return responseObject;
-    } else {
+
+    if (!res.ok) {
       let responseText = '';
       for (let key in responseObject) {
-        responseText += ` ${key}: ${responseObject[key]}`;
+        responseText += `${responseObject[key]}\n`;
       }
       const error = new Error('Bad Response');
       error.name = 'servicesError';
       error.message = responseText;
       throw error;
     }
+
+    return responseObject;
   } catch (error) {
-    throw new Error(`Error parsing response as JSON: ${error.message}`);
+    throw new Error(`${error.message}`);
   }
 }
 
