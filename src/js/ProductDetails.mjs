@@ -65,11 +65,25 @@ export default class ProductDetails {
 
     updateCartCountIcon(cart);
   }
+  selectColor(colorName) {
+    // Update the appearance of the selected swatch
+    const colorSwatches = document.querySelectorAll('.color-swatch-box');
+    colorSwatches.forEach(swatch => {
+      swatch.classList.remove('selected');
+    });
+  
+    const selectedSwatch = document.querySelector(`.color-swatch-box[data-color="${colorName}"]`);
+    if (selectedSwatch) {
+      selectedSwatch.classList.add('selected');
+    }
+  
+    console.log(`Selected color: ${colorName}`);
+  }
+
   colorSwatches(product) {
     if (product.Colors && product.Colors.length > 1) {
       const colorSwatchContainer = document.createElement('div');
       colorSwatchContainer.classList.add('color-swatch-container');
-
   
       product.Colors.forEach(color => {
         const swatch = document.createElement('div');
@@ -80,16 +94,21 @@ export default class ProductDetails {
         swatchImage.src = color.ColorChipImageSrc;
         swatchImage.alt = color.ColorName;
         swatchImage.title = color.ColorName;
-        console.log(swatch);
-        // Add click event listener to each swatch
-        swatch.addEventListener('click', () => this.selectColor(color));
-
-      const swatchName = document.createElement('p');
-      swatchName.innerText = color.ColorName;
-
-    swatch.appendChild(swatchImage);
-    swatch.appendChild(swatchName);
-    colorSwatchContainer.appendChild(swatch);
+  
+        const swatchName = document.createElement('p');
+        swatchName.innerText = color.ColorName;
+  
+        swatch.appendChild(swatchImage);
+        swatch.appendChild(swatchName);
+        colorSwatchContainer.appendChild(swatch);
+      });
+  
+      colorSwatchContainer.addEventListener('click', (event) => {
+        const clickedSwatch = event.target.closest('.color-swatch-box');
+        if (clickedSwatch) {
+          const colorName = clickedSwatch.getAttribute('data-color');
+          this.selectColor(colorName);
+        }
       });
   
       return colorSwatchContainer.outerHTML;
