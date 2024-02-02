@@ -154,9 +154,8 @@ export default class CheckoutProcess {
       window.location.href = '/checkout/success.html';
     } catch (err) {
       removeAllAlerts();
-      for (let message in err.message) {
-        alertMessage(err.message[message]);
-      }
+        alertMessage(err.message);
+
       console.log(err);
     }
   }
