@@ -221,3 +221,41 @@ export function convertToJson(res) {
 export function initialUpper(string) {
   return string.charAt(0).toUpperCase() + string.slice(1);
 }
+
+// Alert Function for checkout form validation
+export function alertMessage(message, scroll = true, duration = 6000) {
+  const alert = document.createElement('div');
+  alert.classList.add('checkout-alert');
+
+  const errorMessageMatch = message.match(/error:\s*(.*)/i);
+  const errorMessage = errorMessageMatch ? errorMessageMatch[1] : message;
+
+  // make banner to display validation error
+  alert.innerHTML = `<p><span> X </span>${message}</p>`;
+
+  alert.addEventListener('click', function (e) {
+    if (e.target.tagName == 'SPAN') {
+      removeAlert(alert);
+    }
+  });
+  const main = document.querySelector('main');
+  main.prepend(alert);
+  if (scroll) window.scrollTo(0, 0);
+
+  // error message will disappear after 6 sec
+  setTimeout(function () {
+    removeAlert(alert);
+  }, duration);
+}
+
+export function removeAllAlerts() {
+  const alerts = document.querySelectorAll('.checkout-alert');
+  alerts.forEach((alert) => document.querySelector('main').removeChild(alert));
+}
+
+function removeAlert(alert) {
+  const main = document.querySelector('main');
+  if (main.contains(alert)) {
+    main.removeChild(alert);
+  }
+}

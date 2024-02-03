@@ -151,6 +151,11 @@ export default class ShoppingCart {
     const totalDiv = document.getElementById('total-hide');
     totalDiv.style.display = 'none';
   }
-
+  clearCart() {
+    localStorage.removeItem('so-cart');
+    updateCartCountIcon(document.querySelector('.cart'));
+    this.renderCartContents();
+    this.hideTotal();
+  }
 
 }
