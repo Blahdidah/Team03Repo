@@ -30,7 +30,7 @@ function formDataToJSON(formElement) {
   formInfo.forEach(function (value, key) {
     convertedJSON[key] = value;
   });
-  //console.log(convertedJSON);
+  
   return convertedJSON;
 }
 
@@ -142,13 +142,11 @@ export default class CheckoutProcess {
     json.tax = this.tax;
     json.shipping = this.shipping;
     json.items = packageItems(this.list);
-    //console.log(json);
     try {
       const res = await services.checkout(json);
       alert(res.message);
-      console.log(res); //TODO: Remove log
     } catch (err) {
-      console.log(err); //TODO: Remove log
+      console.log(err);
     }
   }
 }

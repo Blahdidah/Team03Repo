@@ -51,9 +51,8 @@ export default class ProductDetails {
       existingCart = [];
     }
     // Put the product onto the list
-    console.log(this.selectedColor);
     existingCart.push(this.product);
-    console.log(existingCart);
+    
 
     // Run an animation for adding to the cart
     const cart = document.querySelector('.cart');

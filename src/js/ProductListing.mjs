@@ -62,11 +62,6 @@ export default class ProductListing {
       this.category
     )}`;
     document.title += `: ${initialUpper(this.category)}`;
-
-    // this.dataSource
-    //   .getData()
-    //   .then((productArray) => productArray.filter(this.productFilter))
-    //   .then((productArray) => this.renderList(productArray));
   }
 
   /**
@@ -118,7 +113,6 @@ export default class ProductListing {
    * @param {Array<Object>} productList
    */
   renderList(productList) {
-    console.log(productList);
     renderListWithTemplate(
       productCardTemplate,
       this.listElement,

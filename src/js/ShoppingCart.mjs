@@ -13,7 +13,6 @@ import {
  * @returns {string}
  */
 function cartItemTemplate(product, quantity) {
-  console.log(product);
 
   const newItem = `<li class="cart-card divider">
   <a href="#" class="cart-card__image">
@@ -68,7 +67,7 @@ export default class ShoppingCart {
       const quantityMap = new Map();
       cartItems.forEach((item) => {
         const itemId = item.Id;
-        //        console.log(itemId);
+        
         if (quantityMap.has(itemId)) {
           quantityMap.set(itemId, quantityMap.get(itemId) + 1);
         } else {
@@ -78,8 +77,6 @@ export default class ShoppingCart {
       const uniqueProductIds = Array.from(quantityMap.keys());
       document.querySelector('.product-list').innerHTML = '';
       uniqueProductIds.forEach((itemId) => {
-        const origItemId = itemId.substring(0, itemId.lastIndexOf('.'));
-        console.log(origItemId);
         const item = cartItems.find((cartItem) => cartItem.Id === itemId);
         const htmlItem = cartItemTemplate(item, quantityMap.get(itemId));
         document
