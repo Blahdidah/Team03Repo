@@ -1,4 +1,4 @@
-import {loadHeaderFooter} from './utils.mjs';
+import { loadHeaderFooter } from './utils.mjs';
 import ShoppingCart from './ShoppingCart.mjs';
 
 const shoppingCart = new ShoppingCart();
@@ -13,5 +13,5 @@ document.addEventListener('click', function (event) {
 });
 if (cart.total > 0) {
   // show our checkout button and total if there are items in the cart.
-  document.querySelector(".total-hide").classList.remove("hide");
+  document.querySelector('.total-hide').classList.remove('hide');
 }

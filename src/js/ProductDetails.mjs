@@ -51,7 +51,7 @@ export default class ProductDetails {
       existingCart = [];
     }
     // Put the product onto the list
-    console.log(this.selectedColor)
+    console.log(this.selectedColor);
     existingCart.push(this.product);
     console.log(existingCart);
 
@@ -69,30 +69,32 @@ export default class ProductDetails {
     updateCartCountIcon(cart);
   }
   selectColor(colorName) {
-    this.selectedColor = {color: colorName};
+    this.selectedColor = { color: colorName };
     // Update the appearance of the selected swatch
     const colorSwatches = document.querySelectorAll('.color-swatch-box');
-    colorSwatches.forEach(swatch => {
+    colorSwatches.forEach((swatch) => {
       swatch.classList.remove('selected');
     });
-  
-    const selectedSwatch = document.querySelector(`.color-swatch-box[data-color="${colorName}"]`);
+
+    const selectedSwatch = document.querySelector(
+      `.color-swatch-box[data-color="${colorName}"]`
+    );
     if (selectedSwatch) {
       selectedSwatch.classList.add('selected');
     }
-    return {color: colorName};
+    return { color: colorName };
   }
 
   colorSwatches(product) {
     if (product.Colors && product.Colors.length > 1) {
       const colorSwatchContainer = document.createElement('div');
       colorSwatchContainer.classList.add('color-swatch-container');
-  
-      product.Colors.forEach(color => {
+
+      product.Colors.forEach((color) => {
         const swatch = document.createElement('div');
         swatch.classList.add('color-swatch-box');
         swatch.setAttribute('data-color', color.ColorName); // Add this line
-  
+
         const swatchImage = document.createElement('img');
         swatchImage.src = color.ColorChipImageSrc;
         swatchImage.alt = color.ColorName;
@@ -100,7 +102,7 @@ export default class ProductDetails {
 
         const swatchName = document.createElement('p');
         swatchName.innerText = color.ColorName;
-  
+
         swatch.appendChild(swatchImage);
         swatch.appendChild(swatchName);
         colorSwatchContainer.appendChild(swatch);
@@ -109,16 +111,16 @@ export default class ProductDetails {
         const clickedSwatch = event.target.closest('.color-swatch-box');
         if (clickedSwatch) {
           const colorName = clickedSwatch.getAttribute('data-color');
-          if(product.Id.includes(".")){
+          if (product.Id.includes('.')) {
             product.Id = product.Id.substring(0, product.Id.lastIndexOf('.'));
           }
-          
-          product.Id = product.Id +'.'+ colorName;
+
+          product.Id = product.Id + '.' + colorName;
           product.selectedColor = colorName;
           this.selectColor(colorName);
         }
       });
-  
+
       return colorSwatchContainer;
     } else {
       return '';
@@ -129,15 +131,22 @@ export default class ProductDetails {
    */
   renderProductDetails() {
     const colorSwatches = this.colorSwatches(this.product);
-    const discount = (1 - (this.product.ListPrice / this.product.SuggestedRetailPrice)) * 100;
+    const discount =
+      (1 - this.product.ListPrice / this.product.SuggestedRetailPrice) * 100;
     const details = document.querySelector('.product-detail');
     const template = `<h3>${this.product.Brand.Name}</h3>
 
         <h2 class="divider">${this.product.Name}</h2>
         <picture>
-        <source media="(min-width:650px)" srcset="${this.product.Images.PrimaryExtraLarge}">  
-        <source media="(min-width:465px)" srcset="${this.product.Images.PrimaryLarge}">
-        <source media="(min-width:365px)" srcset="${this.product.Images.PrimaryMedium}">  
+        <source media="(min-width:650px)" srcset="${
+          this.product.Images.PrimaryExtraLarge
+        }">  
+        <source media="(min-width:465px)" srcset="${
+          this.product.Images.PrimaryLarge
+        }">
+        <source media="(min-width:365px)" srcset="${
+          this.product.Images.PrimaryMedium
+        }">  
         <img
           class="divider"
           src="${this.product.Images.PrimarySmall}"
@@ -145,9 +154,15 @@ export default class ProductDetails {
       />
       </picture>
 
-        <p class="product-card__price" id="msrp">MSRP: $${this.product.SuggestedRetailPrice.toFixed(2)}</p>
-        <p class="product-card__price" id="discount-percent">Discounted ${discount.toFixed(0)}%</p>
-        <p class="product-card__price" id="our-price">Our Price: $${this.product.ListPrice.toFixed(2)}</p>
+        <p class="product-card__price" id="msrp">MSRP: $${this.product.SuggestedRetailPrice.toFixed(
+          2
+        )}</p>
+        <p class="product-card__price" id="discount-percent">Discounted ${discount.toFixed(
+          0
+        )}%</p>
+        <p class="product-card__price" id="our-price">Our Price: $${this.product.ListPrice.toFixed(
+          2
+        )}</p>
         <div class='colorSwatch'>
         
         </div>
@@ -159,7 +174,7 @@ export default class ProductDetails {
         <div class="product-detail__add">
         <button id="addToCart" data-id="${this.product.Id}">Add to Cart</button>
         </div>`;
-    details.insertAdjacentHTML("afterbegin", template)
+    details.insertAdjacentHTML('afterbegin', template);
     //details.innerHTML = template;
     const swatchDiv = details.querySelector('.colorSwatch');
     swatchDiv.insertAdjacentElement('afterbegin', colorSwatches);

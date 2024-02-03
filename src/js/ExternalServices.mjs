@@ -12,10 +12,10 @@ async function convertToJson(res) {
   } else {
     let responseObject = await res.json();
     let responseText = '';
-    for(let key in responseObject) {
+    for (let key in responseObject) {
       responseText += ` ${key}: ${responseObject[key]}`;
     }
-    
+
     throw new Error(`Bad Response ${responseText}`);
   }
 }

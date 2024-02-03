@@ -1,7 +1,11 @@
 // Class and helper functions to render a list of products on the root index.html
 
 import ExternalServices from './ExternalServices.mjs'; // For intellisense purposes
-import { renderListWithTemplate, getLocalStorage, updateCartCountIcon } from './utils.mjs';
+import {
+  renderListWithTemplate,
+  getLocalStorage,
+  updateCartCountIcon,
+} from './utils.mjs';
 
 /**
  * Helper function to generate a product card based on values provided by the product parameter object.
@@ -9,8 +13,8 @@ import { renderListWithTemplate, getLocalStorage, updateCartCountIcon } from './
  * @returns {string}
  */
 function cartItemTemplate(product, quantity) {
-  console.log(product);  
-  
+  console.log(product);
+
   const newItem = `<li class="cart-card divider">
   <a href="#" class="cart-card__image">
     <img
@@ -39,50 +43,49 @@ export default class ShoppingCart {
    * @param {ExternalServices} dataSource
    * @param {HTMLElement} listElement
    */
-//   constructor(category, dataSource, listElement) {
-//     this.category = category;
-//     this.dataSource = dataSource;
-//     this.listElement = listElement;
-//   }
+  //   constructor(category, dataSource, listElement) {
+  //     this.category = category;
+  //     this.dataSource = dataSource;
+  //     this.listElement = listElement;
+  //   }
 
-  constructor() {
-
-  }
-
+  constructor() {}
 
   /**
    * Initialize
    */
-//   init() {
-//     this.dataSource
-//       .getData()
-//       .then((productArray) => productArray.filter(this.productFilter))
-//       .then((productArray) => this.renderList(productArray));
-//   }
+  //   init() {
+  //     this.dataSource
+  //       .getData()
+  //       .then((productArray) => productArray.filter(this.productFilter))
+  //       .then((productArray) => this.renderList(productArray));
+  //   }
 
   renderCartContents() {
     const cartItems = getLocalStorage('so-cart');
 
     if (cartItems && cartItems.length > 0) {
       const quantityMap = new Map();
-      cartItems.forEach((item)=>{
-        const itemId = item.Id 
-//        console.log(itemId);
-        if(quantityMap.has(itemId)){
+      cartItems.forEach((item) => {
+        const itemId = item.Id;
+        //        console.log(itemId);
+        if (quantityMap.has(itemId)) {
           quantityMap.set(itemId, quantityMap.get(itemId) + 1);
-        }else{
+        } else {
           quantityMap.set(itemId, 1);
         }
       });
       const uniqueProductIds = Array.from(quantityMap.keys());
       document.querySelector('.product-list').innerHTML = '';
-      uniqueProductIds.forEach((itemId)=>{
+      uniqueProductIds.forEach((itemId) => {
         const origItemId = itemId.substring(0, itemId.lastIndexOf('.'));
         console.log(origItemId);
         const item = cartItems.find((cartItem) => cartItem.Id === itemId);
         const htmlItem = cartItemTemplate(item, quantityMap.get(itemId));
-        document.querySelector('.product-list').insertAdjacentHTML('beforeend', htmlItem);
-      })
+        document
+          .querySelector('.product-list')
+          .insertAdjacentHTML('beforeend', htmlItem);
+      });
       this.showTotal();
     } else {
       document.querySelector('.product-list').innerHTML =
@@ -91,8 +94,6 @@ export default class ShoppingCart {
     }
   }
 
-
-
   /**
    * Filter predicate to remove everything not on the list
    * @param {Object} product An object containing product data
@@ -100,9 +101,9 @@ export default class ShoppingCart {
    */
   productFilter(product) {
     // This is a separate function to satisfy the assignment.
-    
-    return true;  // Filter disabled
-    
+
+    return true; // Filter disabled
+
     //return ['880RR', '985RF', '985PR', '344YJ'].includes(product.Id); // This is hard coded, but I assume it will be dealt with in a future assignment.
   }
 
@@ -122,7 +123,7 @@ export default class ShoppingCart {
 
   removeItemFromCart(itemId) {
     let cartItems = getLocalStorage('so-cart');
-    cartItems = cartItems.filter(item => item.Id !== itemId);
+    cartItems = cartItems.filter((item) => item.Id !== itemId);
     localStorage.setItem('so-cart', JSON.stringify(cartItems));
     updateCartCountIcon(document.querySelector('.cart'));
     this.renderCartContents(); // Update the cart display after removal
@@ -140,11 +141,11 @@ export default class ShoppingCart {
   showTotal() {
     const totalDiv = document.getElementById('total-hide');
     totalDiv.style.display = 'block';
-  
+
     //calculate the total based on the items in the cart
     const cartItems = getLocalStorage('so-cart');
     const totalAmount = this.calculateTotal(cartItems);
-  
+
     //display the total in the div
     const totalElement = document.getElementById('total-amount');
     totalElement.textContent = `$${totalAmount.toFixed(2)}`;
@@ -154,6 +155,4 @@ export default class ShoppingCart {
     const totalDiv = document.getElementById('total-hide');
     totalDiv.style.display = 'none';
   }
-
-
 }

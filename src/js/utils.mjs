@@ -215,8 +215,8 @@ export function convertToJson(res) {
 }
 /**
  * Makes the first character upper case
- * @param {String} string 
- * @returns 
+ * @param {String} string
+ * @returns
  */
 export function initialUpper(string) {
   return string.charAt(0).toUpperCase() + string.slice(1);
