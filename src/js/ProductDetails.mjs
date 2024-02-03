@@ -73,36 +73,125 @@ export default class ProductDetails {
     
     const discount = (1 - (this.product.ListPrice / this.product.SuggestedRetailPrice)) * 100;
     const details = document.querySelector('.product-detail');
-    const template = `<h3>${this.product.Brand.Name}</h3>
 
-        <h2 class="divider">${this.product.Name}</h2>
+    const hasExtraImages = this.product.Images.ExtraImages && this.product.Images.ExtraImages.length > 0;
+
+    let imageTemplate;
+
+    if (hasExtraImages) {
+      //Use a carousel if there are ExtraImages
+      imageTemplate = `
+      <div class="slideshow-container">
+        <div class="mySlides active">
+          <img id="image-0" src="${this.product.Images.PrimaryLarge}" alt="${this.product.Name}" style="width: 100%"></img>
+        </div>
+        ${this.generateSlideShowItems()}
+        <a id="prev">&#10094;</a>
+        <a id="next">&#10095;</a>
+        <div class="column">
+          <img class="prodImage cursor active" src="${this.product.Images.PrimarySmall}" alt="${this.product.Name}" style="width: 100%;">
+        </div>
+        <div class="row">${this.generateThumbNails()}</div>
+      </div>`;
+    } 
+    else {
+      //Use a single image if there are no ExtraImages
+      imageTemplate = `
         <picture>
-        <source media="(min-width:650px)" srcset="${this.product.Images.PrimaryExtraLarge}">  
-        <source media="(min-width:465px)" srcset="${this.product.Images.PrimaryLarge}">
-        <source media="(min-width:365px)" srcset="${this.product.Images.PrimaryMedium}">  
-        <img
-          class="divider"
-          src="${this.product.Images.PrimarySmall}"
-          alt="${this.product.Name}"
-      />
-      </picture>
 
-        <p class="product-card__price" id="msrp">${this.product.isClearance ? '!' : '🚩'}MSRP: $${this.product.SuggestedRetailPrice.toFixed(2)}</p>
-        <p class="product-card__price" id="discount-percent">Discounted ${discount.toFixed(0)}%</p>
-        <p class="product-card__price" id="our-price">Our Price: $${this.product.ListPrice.toFixed(2)}</p>
+          <source media="(min-width:650px)" srcset="${this.product.Images.PrimaryExtraLarge}">  
+          <source media="(min-width:465px)" srcset="${this.product.Images.PrimaryLarge}">
+          <source media="(min-width:365px)" srcset="${this.product.Images.PrimaryMedium}">  
+          <img class="divider" src="${this.product.Images.PrimarySmall}" alt="${this.product.Name}">
+        </picture>`;
+    }
 
-        <p class="product__color">${this.product.Colors[0].ColorName}</p>
-
-        <p class="product__description">${this.product.DescriptionHtmlSimple}
-        
-        </p>
-
-        <div class="product-detail__add">
+    //Product Template
+    const template = `
+      <h3>${this.product.Brand.Name}</h3>
+      <h2 class="divider">${this.product.Name}</h2>
+      ${imageTemplate}        
+      <p class="product-card__price" id="msrp">${this.product.isClearance ? '!' : '🚩'}MSRP: $${this.product.SuggestedRetailPrice.toFixed(2)}</p>
+      <p class="product-card__price" id="discount-percent">Discounted ${discount.toFixed(0)}%</p>
+      <p class="product-card__price" id="our-price">Our Price: $${this.product.ListPrice.toFixed(2)}</p>
+      <div class='colorSwatch'>
+      </div>
+      <p class="product__description">${this.product.DescriptionHtmlSimple}</p>
+      <div class="product-detail__add">
         <button id="addToCart" data-id="${this.product.Id}">Add to Cart</button>
-        </div>`;
+      </div>`;
+
     details.innerHTML = template;
-    document.querySelector(
-      'title'
-    ).innerHTML = `Sleep Outside | ${this.product.Name}`; // Set the title
+    document.querySelector('title').innerHTML = `Sleep Outside | ${this.product.Name}`; // Set the title
+
+    //initialize the carousel if there are extra images
+    if (hasExtraImages) {
+      this.runSlideShow();
+    }
   }
+
+  //dynamically load slide pictures
+  generateSlideShowItems() {  
+    return this.product.Images.ExtraImages.map((image, index) => `
+      <div class="mySlides">
+        <img id="image-${[index+1]}" src="${image.Src}" alt="${image.Title}" style="width: 100%"></img>
+      </div>
+      `).join('');  
+  } 
+  //dyanmically load thumbnail pictures
+  generateThumbNails() {
+    return this.product.Images.ExtraImages.map((image, index) => `  
+    <div class="column">
+        <img class="prodImage cursor" src="${image.Src}" alt="${image.Title}" style="width: 100%;">
+    </div>
+    `).join('');
+  }
+
+  //process previous and next clicks through the images
+  runSlideShow() {
+    let slideIndex = 1;
+
+    function showSlides() {
+      let i;
+      let slides = document.getElementsByClassName("mySlides");
+      let dots = document.getElementsByClassName("prodImage");
+
+      //Ensure slideIndex is within the valid range
+      if (slideIndex > slides.length) { slideIndex = 1; }
+      if (slideIndex < 1) { slideIndex = slides.length; }
+
+      //Hide slides
+      for (i = 0; i < slides.length; i++) {
+        slides[i].style.display = "none";
+      }
+      //Remove 'active' class from all dots
+      for (i = 0; i < dots.length; i++) {
+        dots[i].className = dots[i].className.replace(" active", "");
+      }
+      //Display current slide and mark as active
+      slides[slideIndex-1].style.display = "block";
+      dots[slideIndex-1].className += " active";
+    }
+
+    document.getElementById('next').addEventListener('click', function() {
+      slideIndex += 1;
+      showSlides();
+    });
+    
+    document.getElementById('prev').addEventListener('click', function() {
+      slideIndex -= 1;
+      showSlides();
+    });
+
+    let thumbnailImages = document.getElementsByClassName('prodImage');
+
+    for(let i = 0; i < thumbnailImages.length; i++) {
+      thumbnailImages[i].addEventListener('click', function() {
+        slideIndex = i+1;
+        showSlides();
+      });
+    }
+
+    showSlides();
+  }   
 }
