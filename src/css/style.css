@@ -215,13 +215,18 @@ ul li span:hover {
   grid-row: 2;
   grid-column: 3;
 }
-#cart-total{
-  display:grid;
-  grid-template-columns: 150px auto 15%;
-  flex-direction:row;
-  justify-content:end;
-  gap:100px;
-  width: 60%;
+#cart-total {
+  display: grid;
+  grid-template-columns: 150px auto 30%;
+  flex-direction: row;
+  justify-content: end;
+  column-gap: 100px;
+}
+#checkoutButton a {
+  text-decoration: none;
+}
+#clearCart {
+  grid-column: 3;
 }
 .count-icon {
   position: absolute;
