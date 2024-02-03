@@ -5,6 +5,7 @@ import {
   itemToCartAnimate,
   setLocalStorage,
   updateCartCountIcon,
+  alertMessage
 } from './utils.mjs';
 import ExternalServices from './ExternalServices.mjs'; // For autocomplete purposes
 
@@ -62,8 +63,10 @@ export default class ProductDetails {
 
     // Store the list to local storage
     setLocalStorage('so-cart', existingCart);
+    alertMessage(`${this.product.NameWithoutBrand} has succesffulyy been added to your cart`);
 
     updateCartCountIcon(cart);
+    
   }
 
   /**

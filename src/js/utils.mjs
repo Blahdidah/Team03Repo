@@ -221,3 +221,24 @@ export function convertToJson(res) {
 export function initialUpper(string) {
   return string.charAt(0).toUpperCase() + string.slice(1);
 }
+
+export function alertMessage(message, scroll=true) {
+  const alert = document.createElement('div');
+  alert.classList.add('alert');
+
+  alert.addEventListener('click', function(e) {
+    if(e.target.innerText) {
+      MediaDeviceInfo.removeChild(this);
+    }
+  })
+  const main = document.querySelector('main');
+  main.prepend(alert);
+
+  if(scroll)
+    window.scrollTo(0,0);
+}
+
+export function removeAlerts() {
+  const alerts = document.querySelectorAll('.alert')
+  alerts.forEach((alert) => document.querySelector('main').removeChild(alert));
+}

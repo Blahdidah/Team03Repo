@@ -1,3 +1,5 @@
+import { convertToJson } from "./utils.mjs";
+
 // A Class and helper functions to handle collections of products
 const baseURL = import.meta.env.VITE_SERVER_URL;
 
@@ -6,17 +8,26 @@ const baseURL = import.meta.env.VITE_SERVER_URL;
  * @param {Response} res
  * @returns {Promise<Object>}
  */
-async function convertToJson(res) {
-  if (res.ok) {
-    return await res.json();
-  } else {
-    let responseObject = await res.json();
-    let responseText = '';
-    for(let key in responseObject) {
-      responseText += ` ${key}: ${responseObject[key]}`;
-    }
+// async function convertToJson(res) {
+//   if (res.ok) {
+//     return await res.json();
+//   } else {
+//     let responseObject = await res.json();
+//     let responseText = '';
+//     for(let key in responseObject) {
+//       responseText += ` ${key}: ${responseObject[key]}`;
+//     }
     
-    throw new Error(`Bad Response ${responseText}`);
+//     throw new Error(`Bad Response ${responseText}`);
+//   }
+// }
+
+async function convertToJson(res) {
+  const data = await res.json();
+  if(res.ok) {
+    return data;
+  } else {
+    throw {name: 'serviceError', message: data}
   }
 }
 
