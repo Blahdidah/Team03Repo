@@ -12,10 +12,10 @@ async function convertToJson(res) {
   } else {
     let responseObject = await res.json();
     let responseText = '';
-    for(let key in responseObject) {
+    for (let key in responseObject) {
       responseText += ` ${key}: ${responseObject[key]}`;
     }
-    
+
     throw new Error(`Bad Response ${responseText}`);
   }
 }
@@ -51,7 +51,6 @@ export default class ExternalServices {
         let responseData = await convertToJson(response);
         data = data.concat(responseData.Result); // Append the new data
       }
-      //console.log(data.Result);
     } else {
       // Just load one category
       let response = await fetch(baseURL + `products/search/${category}`);
@@ -75,7 +74,6 @@ export default class ExternalServices {
     return product.Result;
   }
   async checkout(payload) {
-    console.log(payload);
     const options = {
       method: 'POST',
       headers: {

@@ -21,6 +21,7 @@ export default class ProductDetails {
     this.productId = productId;
     this.product = {};
     this.dataSource = dataSource;
+    this.selectedColor = null;
   }
   /**
    * Setup up and render the product to the page
@@ -44,11 +45,18 @@ export default class ProductDetails {
    * @param {Event} event
    */
   addToCart(event) {
+    //check if a color is selected
+    if (!this.product.selectedColor) {
+      this.displayErrorMessage('Error: Please Select a color');
+      return;
+    }
+
     //construct an existing cart, check if it is an array
     let existingCart = getLocalStorage('so-cart') || [];
     if (!Array.isArray(existingCart)) {
       existingCart = [];
     }
+
     // Put the product onto the list
     existingCart.push(this.product);
 
@@ -60,18 +68,113 @@ export default class ProductDetails {
       500
     );
 
+    this.clearErrorMessage();
+
     // Store the list to local storage
     setLocalStorage('so-cart', existingCart);
 
+    //the cart count icon update
     updateCartCountIcon(cart);
+  }
+
+  displayErrorMessage(message) {
+    const errorMessageDiv = document.createElement('div');
+    errorMessageDiv.classList.add('error-message');
+    errorMessageDiv.textContent = message;
+
+    const productDetailContainer = document.querySelector('.product-detail');
+    const firstChild = productDetailContainer.firstChild;
+    productDetailContainer.insertBefore(errorMessageDiv, firstChild);
+  }
+
+  clearErrorMessage() {
+    // Remove any existing error messages
+    const existingErrorMessage = document.querySelector('.error-message');
+    if (existingErrorMessage) {
+      existingErrorMessage.remove();
+    }
+  }
+
+  selectColor(colorName) {
+    this.selectedColor = { color: colorName };
+    // Update the appearance of the selected swatch
+    const colorSwatches = document.querySelectorAll('.color-swatch-box');
+    colorSwatches.forEach((swatch) => {
+      swatch.classList.remove('selected');
+    });
+
+    const selectedSwatch = document.querySelector(
+      `.color-swatch-box[data-color="${colorName}"]`
+    );
+    if (selectedSwatch) {
+      selectedSwatch.classList.add('selected');
+    }
+    return { color: colorName };
+  }
+
+  colorSwatches(product) {
+    console.log(product);
+    if (product.Colors && product.Colors.length > 0) {
+      if (product.Colors.length === 1) {
+        const colorArray = product.Colors[0];
+        const selectedColor = colorArray.ColorName;
+        if (product.Id.includes('.')) {
+          product.Id = product.Id.substring(0, product.Id.lastIndexOf('.'));
+        }
+        product.Id = product.Id + '.' + selectedColor;
+        product.selectedColor = selectedColor;
+        console.log(product);
+        return selectedColor;
+      } else {
+        
+        const colorSwatchContainer = document.createElement('div');
+        colorSwatchContainer.classList.add('color-swatch-container');
+        product.Colors.forEach((color) => {
+          console.log(`i got this far`);
+          const swatch = document.createElement('div');
+          swatch.classList.add('color-swatch-box');
+          swatch.setAttribute('data-color', color.ColorName); // Add this line
+
+          const swatchImage = document.createElement('img');
+          swatchImage.src = color.ColorChipImageSrc;
+          swatchImage.alt = color.ColorName;
+          swatchImage.title = color.ColorName;
+
+          const swatchName = document.createElement('p');
+          swatchName.innerText = color.ColorName;
+
+          swatch.appendChild(swatchImage);
+          swatch.appendChild(swatchName);
+          colorSwatchContainer.appendChild(swatch);
+        });
+        
+        colorSwatchContainer.addEventListener('click', (event) => {
+          const clickedSwatch = event.target.closest('.color-swatch-box');
+          if (clickedSwatch) {
+            const colorName = clickedSwatch.getAttribute('data-color');
+            if (product.Id.includes('.')) {
+              product.Id = product.Id.substring(0, product.Id.lastIndexOf('.'));
+            }
+            product.Id = product.Id + '.' + colorName;
+            product.selectedColor = colorName;
+            this.selectColor(colorName);
+          }
+        });
+        return colorSwatchContainer;
+      }
+    } else {
+      // Return null or an empty object, indicating no color information
+      return null;
+    }
   }
 
   /**
    * Render the template to the page
    */
   renderProductDetails() {
-    
-    const discount = (1 - (this.product.ListPrice / this.product.SuggestedRetailPrice)) * 100;
+    const colorSwatches = this.colorSwatches(this.product); //this is the selected color!
+    const discount =
+      (1 - this.product.ListPrice / this.product.SuggestedRetailPrice) * 100;
     const details = document.querySelector('.product-detail');
 
     const hasExtraImages = this.product.Images.ExtraImages && this.product.Images.ExtraImages.length > 0;
@@ -99,6 +202,7 @@ export default class ProductDetails {
       imageTemplate = `
         <picture>
 
+
           <source media="(min-width:650px)" srcset="${this.product.Images.PrimaryExtraLarge}">  
           <source media="(min-width:465px)" srcset="${this.product.Images.PrimaryLarge}">
           <source media="(min-width:365px)" srcset="${this.product.Images.PrimaryMedium}">  
@@ -120,9 +224,18 @@ export default class ProductDetails {
       <div class="product-detail__add">
         <button id="addToCart" data-id="${this.product.Id}">Add to Cart</button>
       </div>`;
-
-    details.innerHTML = template;
-    document.querySelector('title').innerHTML = `Sleep Outside | ${this.product.Name}`; // Set the title
+    details.insertAdjacentHTML('afterbegin', template);
+    //details.innerHTML = template;
+    if (typeof colorSwatches === 'string'){
+      document.querySelector('title').innerHTML =`Sleep Outside | ${this.product.Name}`;
+    }else{
+      const swatchDiv = details.querySelector('.colorSwatch');
+      swatchDiv.insertAdjacentElement('afterbegin', colorSwatches);
+      document.querySelector(
+        'title'
+      ).innerHTML = `Sleep Outside | ${this.product.Name}`; // Set the title
+    };
+    
 
     //initialize the carousel if there are extra images
     if (hasExtraImages) {

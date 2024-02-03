@@ -128,10 +128,10 @@ export function getParam(param) {
  */
 export function updateCartCountIcon(cartDiv) {
   /** @type {Array<object>} */
-  let cart = getLocalStorage('so-cart');
+  let cart = getLocalStorage('so-cart') || [];
   let countIcon = cartDiv.querySelector('.count-icon');
 
-  if (cart.length) {
+  if (cart !== null && cart !==undefined) {
     //Truthy
     if (countIcon) {
       countIcon.innerText = `${cart.length}`;
@@ -215,8 +215,8 @@ export function convertToJson(res) {
 }
 /**
  * Makes the first character upper case
- * @param {String} string 
- * @returns 
+ * @param {String} string
+ * @returns
  */
 export function initialUpper(string) {
   return string.charAt(0).toUpperCase() + string.slice(1);
