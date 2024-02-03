@@ -13,7 +13,6 @@ import {
  * @returns {string}
  */
 function cartItemTemplate(product, quantity) {
-
   const newItem = `<li class="cart-card divider">
   <a href="#" class="cart-card__image">
     <img
@@ -67,7 +66,7 @@ export default class ShoppingCart {
       const quantityMap = new Map();
       cartItems.forEach((item) => {
         const itemId = item.Id;
-        
+
         if (quantityMap.has(itemId)) {
           quantityMap.set(itemId, quantityMap.get(itemId) + 1);
         } else {

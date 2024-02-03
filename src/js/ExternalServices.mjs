@@ -51,7 +51,6 @@ export default class ExternalServices {
         let responseData = await convertToJson(response);
         data = data.concat(responseData.Result); // Append the new data
       }
-      
     } else {
       // Just load one category
       let response = await fetch(baseURL + `products/search/${category}`);
@@ -75,7 +74,6 @@ export default class ExternalServices {
     return product.Result;
   }
   async checkout(payload) {
-
     const options = {
       method: 'POST',
       headers: {

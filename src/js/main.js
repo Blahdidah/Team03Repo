@@ -8,4 +8,3 @@ let alerts = new Alert('alerts');
 alerts.init(); // Renders the alerts to the page
 
 loadHeaderFooter('partials');
-

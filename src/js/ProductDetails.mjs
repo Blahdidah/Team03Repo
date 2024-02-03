@@ -52,7 +52,6 @@ export default class ProductDetails {
     }
     // Put the product onto the list
     existingCart.push(this.product);
-    
 
     // Run an animation for adding to the cart
     const cart = document.querySelector('.cart');

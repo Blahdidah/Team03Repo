@@ -30,7 +30,7 @@ function formDataToJSON(formElement) {
   formInfo.forEach(function (value, key) {
     convertedJSON[key] = value;
   });
-  
+
   return convertedJSON;
 }
 
