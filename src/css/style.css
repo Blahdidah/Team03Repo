@@ -176,6 +176,12 @@ ul li span:hover {
 .product-detail img {
   width: 100%;
 }
+.error-message {
+  font-weight: bold;
+  color: white;
+  font-size: 35px;
+  background-color: orange;
+}
 .color-swatch-container {
   display: flex;
   justify-content: space-evenly;
@@ -224,11 +230,13 @@ ul li span:hover {
 }
 #cart-total {
   display: grid;
-  grid-template-columns: 150px auto 15%;
+  grid-template-columns: 150px auto 30%;
   flex-direction: row;
   justify-content: end;
-  gap: 100px;
-  width: 60%;
+  column-gap: 100px;
+}
+#clearCart {
+  grid-column-start: 3;
 }
 .count-icon {
   position: absolute;
@@ -339,6 +347,9 @@ ul li span:hover {
   display: flex;
   flex-direction: column;
   gap: 0.5em;
+}
+div#cart-total a {
+  text-decoration: none;
 }
 
 @media screen and (min-width: 500px) {
