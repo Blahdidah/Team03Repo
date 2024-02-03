@@ -113,6 +113,7 @@ export default class ProductDetails {
   }
 
   colorSwatches(product) {
+    console.log(product);
     if (product.Colors && product.Colors.length > 0) {
       if (product.Colors.length === 1) {
         const colorArray = product.Colors[0];
@@ -120,15 +121,16 @@ export default class ProductDetails {
         if (product.Id.includes('.')) {
           product.Id = product.Id.substring(0, product.Id.lastIndexOf('.'));
         }
-
         product.Id = product.Id + '.' + selectedColor;
         product.selectedColor = selectedColor;
         console.log(product);
         return selectedColor;
       } else {
+        
         const colorSwatchContainer = document.createElement('div');
         colorSwatchContainer.classList.add('color-swatch-container');
         product.Colors.forEach((color) => {
+          console.log(`i got this far`);
           const swatch = document.createElement('div');
           swatch.classList.add('color-swatch-box');
           swatch.setAttribute('data-color', color.ColorName); // Add this line
@@ -145,6 +147,7 @@ export default class ProductDetails {
           swatch.appendChild(swatchName);
           colorSwatchContainer.appendChild(swatch);
         });
+        
         colorSwatchContainer.addEventListener('click', (event) => {
           const clickedSwatch = event.target.closest('.color-swatch-box');
           if (clickedSwatch) {
@@ -221,9 +224,18 @@ export default class ProductDetails {
       <div class="product-detail__add">
         <button id="addToCart" data-id="${this.product.Id}">Add to Cart</button>
       </div>`;
-
-    details.innerHTML = template;
-    document.querySelector('title').innerHTML = `Sleep Outside | ${this.product.Name}`; // Set the title
+    details.insertAdjacentHTML('afterbegin', template);
+    //details.innerHTML = template;
+    if (typeof colorSwatches === 'string'){
+      document.querySelector('title').innerHTML =`Sleep Outside | ${this.product.Name}`;
+    }else{
+      const swatchDiv = details.querySelector('.colorSwatch');
+      swatchDiv.insertAdjacentElement('afterbegin', colorSwatches);
+      document.querySelector(
+        'title'
+      ).innerHTML = `Sleep Outside | ${this.product.Name}`; // Set the title
+    };
+    
 
     //initialize the carousel if there are extra images
     if (hasExtraImages) {
