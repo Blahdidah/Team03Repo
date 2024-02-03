@@ -224,8 +224,8 @@ export function initialUpper(string) {
 
 // Alert Function for checkout form validation
 export function alertMessage(message, scroll = true, duration = 6000) {
-  const alert = document.createElement("div");
-  alert.classList.add("checkout-alert");
+  const alert = document.createElement('div');
+  alert.classList.add('checkout-alert');
 
   const errorMessageMatch = message.match(/error:\s*(.*)/i);
   const errorMessage = errorMessageMatch ? errorMessageMatch[1] : message;
@@ -233,12 +233,12 @@ export function alertMessage(message, scroll = true, duration = 6000) {
   // make banner to display validation error
   alert.innerHTML = `<p><span> X </span>${message}</p>`;
 
-  alert.addEventListener("click", function (e) {
-    if (e.target.tagName == "SPAN") {
+  alert.addEventListener('click', function (e) {
+    if (e.target.tagName == 'SPAN') {
       removeAlert(alert);
     }
   });
-  const main = document.querySelector("main");
+  const main = document.querySelector('main');
   main.prepend(alert);
   if (scroll) window.scrollTo(0, 0);
 
@@ -249,12 +249,12 @@ export function alertMessage(message, scroll = true, duration = 6000) {
 }
 
 export function removeAllAlerts() {
-  const alerts = document.querySelectorAll(".checkout-alert");
-  alerts.forEach((alert) => document.querySelector("main").removeChild(alert));
+  const alerts = document.querySelectorAll('.checkout-alert');
+  alerts.forEach((alert) => document.querySelector('main').removeChild(alert));
 }
 
 function removeAlert(alert) {
-  const main = document.querySelector("main");
+  const main = document.querySelector('main');
   if (main.contains(alert)) {
     main.removeChild(alert);
   }
