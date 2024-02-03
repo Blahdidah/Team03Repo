@@ -177,15 +177,15 @@ ul li span:hover {
 .product-detail img {
   width: 100%;
 }
-.colorSwatch{
+.color-swatch-container{
   display:flex;
   justify-content: space-evenly;
 }
 .color-swatch-box{
   width:60px;
 }
-.selected{
-  border-color: red;
+.selected img{
+  border: 5px solid #ff8d00;
 }
 /* Start cart list card styles */
 .cart-card {

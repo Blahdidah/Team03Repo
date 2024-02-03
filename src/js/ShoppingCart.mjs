@@ -21,7 +21,7 @@ function cartItemTemplate(product, quantity) {
   <a href="#">
     <h2 class="card__name">${product.Name}</h2>
   </a>
-  <p class="cart-card__color">${product.Colors[0].ColorName}</p>
+  <p class="cart-card__color">${product.selectedColor}</p>
   <p class="cart-card__quantity">qty: ${quantity} <span class="remove-item" data-id="${product.Id}"> 🗑 </span></p>
   <p class="cart-card__price">$${product.FinalPrice}</p>
 </li>`;
@@ -66,7 +66,8 @@ export default class ShoppingCart {
     if (cartItems && cartItems.length > 0) {
       const quantityMap = new Map();
       cartItems.forEach((item)=>{
-        const itemId = item.Id;
+        const itemId = item.Id 
+//        console.log(itemId);
         if(quantityMap.has(itemId)){
           quantityMap.set(itemId, quantityMap.get(itemId) + 1);
         }else{
@@ -76,6 +77,8 @@ export default class ShoppingCart {
       const uniqueProductIds = Array.from(quantityMap.keys());
       document.querySelector('.product-list').innerHTML = '';
       uniqueProductIds.forEach((itemId)=>{
+        const origItemId = itemId.substring(0, itemId.lastIndexOf('.'));
+        console.log(origItemId);
         const item = cartItems.find((cartItem) => cartItem.Id === itemId);
         const htmlItem = cartItemTemplate(item, quantityMap.get(itemId));
         document.querySelector('.product-list').insertAdjacentHTML('beforeend', htmlItem);

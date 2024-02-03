@@ -21,6 +21,7 @@ export default class ProductDetails {
     this.productId = productId;
     this.product = {};
     this.dataSource = dataSource;
+    this.selectedColor = null;
   }
   /**
    * Setup up and render the product to the page
@@ -50,7 +51,9 @@ export default class ProductDetails {
       existingCart = [];
     }
     // Put the product onto the list
+    console.log(this.selectedColor)
     existingCart.push(this.product);
+    console.log(existingCart);
 
     // Run an animation for adding to the cart
     const cart = document.querySelector('.cart');
@@ -66,6 +69,7 @@ export default class ProductDetails {
     updateCartCountIcon(cart);
   }
   selectColor(colorName) {
+    this.selectedColor = {color: colorName};
     // Update the appearance of the selected swatch
     const colorSwatches = document.querySelectorAll('.color-swatch-box');
     colorSwatches.forEach(swatch => {
@@ -76,8 +80,7 @@ export default class ProductDetails {
     if (selectedSwatch) {
       selectedSwatch.classList.add('selected');
     }
-  
-    console.log(`Selected color: ${colorName}`);
+    return {color: colorName};
   }
 
   colorSwatches(product) {
@@ -94,7 +97,7 @@ export default class ProductDetails {
         swatchImage.src = color.ColorChipImageSrc;
         swatchImage.alt = color.ColorName;
         swatchImage.title = color.ColorName;
-  
+
         const swatchName = document.createElement('p');
         swatchName.innerText = color.ColorName;
   
@@ -102,16 +105,21 @@ export default class ProductDetails {
         swatch.appendChild(swatchName);
         colorSwatchContainer.appendChild(swatch);
       });
-  
       colorSwatchContainer.addEventListener('click', (event) => {
         const clickedSwatch = event.target.closest('.color-swatch-box');
         if (clickedSwatch) {
           const colorName = clickedSwatch.getAttribute('data-color');
+          if(product.Id.includes(".")){
+            product.Id = product.Id.substring(0, product.Id.lastIndexOf('.'));
+          }
+          
+          product.Id = product.Id +'.'+ colorName;
+          product.selectedColor = colorName;
           this.selectColor(colorName);
         }
       });
   
-      return colorSwatchContainer.outerHTML;
+      return colorSwatchContainer;
     } else {
       return '';
     }
@@ -141,7 +149,7 @@ export default class ProductDetails {
         <p class="product-card__price" id="discount-percent">Discounted ${discount.toFixed(0)}%</p>
         <p class="product-card__price" id="our-price">Our Price: $${this.product.ListPrice.toFixed(2)}</p>
         <div class='colorSwatch'>
-        ${colorSwatches}
+        
         </div>
 
         <p class="product__description">${this.product.DescriptionHtmlSimple}
@@ -151,7 +159,10 @@ export default class ProductDetails {
         <div class="product-detail__add">
         <button id="addToCart" data-id="${this.product.Id}">Add to Cart</button>
         </div>`;
-    details.innerHTML = template;
+    details.insertAdjacentHTML("afterbegin", template)
+    //details.innerHTML = template;
+    const swatchDiv = details.querySelector('.colorSwatch');
+    swatchDiv.insertAdjacentElement('afterbegin', colorSwatches);
     document.querySelector(
       'title'
     ).innerHTML = `Sleep Outside | ${this.product.Name}`; // Set the title
