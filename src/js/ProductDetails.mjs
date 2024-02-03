@@ -98,6 +98,7 @@ export default class ProductDetails {
       //Use a single image if there are no ExtraImages
       imageTemplate = `
         <picture>
+
           <source media="(min-width:650px)" srcset="${this.product.Images.PrimaryExtraLarge}">  
           <source media="(min-width:465px)" srcset="${this.product.Images.PrimaryLarge}">
           <source media="(min-width:365px)" srcset="${this.product.Images.PrimaryMedium}">  
@@ -110,10 +111,11 @@ export default class ProductDetails {
       <h3>${this.product.Brand.Name}</h3>
       <h2 class="divider">${this.product.Name}</h2>
       ${imageTemplate}        
-      <p class="product-card__price" id="msrp">MSRP: $${this.product.SuggestedRetailPrice.toFixed(2)}</p>
+      <p class="product-card__price" id="msrp">${this.product.isClearance ? '!' : '🚩'}MSRP: $${this.product.SuggestedRetailPrice.toFixed(2)}</p>
       <p class="product-card__price" id="discount-percent">Discounted ${discount.toFixed(0)}%</p>
       <p class="product-card__price" id="our-price">Our Price: $${this.product.ListPrice.toFixed(2)}</p>
-      <p class="product__color">${this.product.Colors[0].ColorName}</p>
+      <div class='colorSwatch'>
+      </div>
       <p class="product__description">${this.product.DescriptionHtmlSimple}</p>
       <div class="product-detail__add">
         <button id="addToCart" data-id="${this.product.Id}">Add to Cart</button>
