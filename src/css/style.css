@@ -198,7 +198,7 @@ ul li span:hover {
 #next {
   cursor: pointer;
   position: absolute;
-  top: 80%;
+  top: 71%;
   width: auto;
   padding: 16px;
   margin-top: -50px;
@@ -231,7 +231,7 @@ ul li span:hover {
 /* Four columns side by side */
 .column {
   float: left;
-  width: 23%;
+  width: 20%;
 }
 .prodImage {
   opacity: .06;

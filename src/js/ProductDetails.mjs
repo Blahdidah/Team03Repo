@@ -82,9 +82,15 @@ export default class ProductDetails {
       //Use a carousel if there are ExtraImages
       imageTemplate = `
       <div class="slideshow-container">
+        <div class="mySlides active">
+          <img id="image-0" src="${this.product.Images.PrimaryLarge}" alt="${this.product.Name}" style="width: 100%"></img>
+        </div>
         ${this.generateSlideShowItems()}
         <a id="prev">&#10094;</a>
         <a id="next">&#10095;</a>
+        <div class="column">
+          <img class="prodImage cursor active" src="${this.product.Images.PrimarySmall}" alt="${this.product.Name}" style="width: 100%;">
+        </div>
         <div class="row">${this.generateThumbNails()}</div>
       </div>`;
     } 
@@ -125,8 +131,8 @@ export default class ProductDetails {
   //dynamically load slide pictures
   generateSlideShowItems() {  
     return this.product.Images.ExtraImages.map((image, index) => `
-      <div class="mySlides ${index === 0 ? 'active' : ''}">
-        <img id="image-${[index]}" src="${image.Src}" alt="${image.Title}" style="width: 100%"></img>
+      <div class="mySlides">
+        <img id="image-${[index+1]}" src="${image.Src}" alt="${image.Title}" style="width: 100%"></img>
       </div>
       `).join('');  
   } 
@@ -134,7 +140,7 @@ export default class ProductDetails {
   generateThumbNails() {
     return this.product.Images.ExtraImages.map((image, index) => `  
     <div class="column">
-        <img class="prodImage cursor ${index === 0 ? 'active' : ''}" src="${image.Src}" alt="${image.Title}" style="width: 100%;">
+        <img class="prodImage cursor" src="${image.Src}" alt="${image.Title}" style="width: 100%;">
     </div>
     `).join('');
   }
@@ -147,17 +153,24 @@ export default class ProductDetails {
       let i;
       let slides = document.getElementsByClassName("mySlides");
       let dots = document.getElementsByClassName("prodImage");
+
+      //Ensure slideIndex is within the valid range
       if (slideIndex > slides.length) { slideIndex = 1; }
-      if (slideIndex < 1) { slideIndex = slides.lengt; }
+      if (slideIndex < 1) { slideIndex = slides.length; }
+
+      //Hide slides
       for (i = 0; i < slides.length; i++) {
         slides[i].style.display = "none";
       }
+      //Remove 'active' class from all dots
       for (i = 0; i < dots.length; i++) {
         dots[i].className = dots[i].className.replace(" active", "");
       }
+      //Display current slide and mark as active
       slides[slideIndex-1].style.display = "block";
       dots[slideIndex-1].className += " active";
     }
+
     document.getElementById('next').addEventListener('click', function() {
       slideIndex += 1;
       showSlides();
