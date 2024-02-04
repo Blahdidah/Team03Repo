@@ -262,6 +262,33 @@ function removeAlert(alert) {
   }
 }
 
+export function addBanner(message) {
+  const banner = document.createElement('div');
+  banner.classList.add('banner-message');
+  // banner.innerHTML = `<p>${message}</p>`;
+
+  // banner.addEventListener('cick', function (e) {
+  //   if (e.target.tagName == 'SPAN') {
+  //     main.removeChild(this);
+  //   }
+  // });
+  const main = document.querySelector('main');
+  main.prepend(banner);
+
+  let count = Number(window.localStorage.getItem('count-jf')) || 0;
+  
+    if(count == 0) {
+      banner.innerHTML = `<p>${message}</p>`;
+
+    }else{
+
+    }
+  
+  count++;
+
+  localStorage.setItem('count-jf', count);  
+}
+
 export async function productQuickView(id) {
   //Get the data from api
   const externalServices = new ExternalServices();
@@ -310,5 +337,4 @@ export async function productQuickView(id) {
   //Add it to the page
   outterContainer.insertAdjacentElement('afterbegin',innerContainer);
   document.querySelector('body').insertAdjacentElement('afterbegin', outterContainer);
-
 }
