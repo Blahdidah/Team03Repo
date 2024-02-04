@@ -25,6 +25,7 @@ function productCardTemplate(product) {
               2
             )}</p>
         </a>
+        <input type="button" value="QUICK VIEW" class="quickview-button" onclick="productQuickView('${product.Id}')">
     </li>`;
 }
 
