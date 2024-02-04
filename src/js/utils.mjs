@@ -1,3 +1,5 @@
+import ExternalServices from './ExternalServices.mjs';
+
 /**
  * wrapper for querySelector...returns matching element
  * @param {String} selector
@@ -131,7 +133,7 @@ export function updateCartCountIcon(cartDiv) {
   let cart = getLocalStorage('so-cart') || [];
   let countIcon = cartDiv.querySelector('.count-icon');
 
-  if (cart !== null && cart !==undefined) {
+  if (cart !== null && cart !== undefined) {
     //Truthy
     if (countIcon) {
       countIcon.innerText = `${cart.length}`;
@@ -258,4 +260,55 @@ function removeAlert(alert) {
   if (main.contains(alert)) {
     main.removeChild(alert);
   }
+}
+
+export async function productQuickView(id) {
+  //Get the data from api
+  const externalServices = new ExternalServices();
+  const productData = await externalServices.findProductById(id);
+
+  //Create the modal window div
+  const outterContainer = document.createElement('div');
+  const innerContainer = document.createElement('div');
+
+  //Populate div content
+  outterContainer.classList.add('quick-view-outter');
+  innerContainer.classList.add('quick-view-inner');
+  innerContainer.innerHTML = `
+    <span class="quickview-title"><h3>${productData.Name}</h3><input id="quickview-close" type="button" value="X"></span>
+    <div class="quickview-content">
+      <picture>
+        <source srcset="${productData.Images.PrimaryExtraLarge} 600w" media="(min-width: 1200px)"/>
+        <source srcset="${productData.Images.PrimaryLarge} 320w" media="(min-width: 640px)"/>
+        <source srcset="${productData.Images.PrimaryMedium} 160w" media="(min-width: 320px)"/>
+        <img src="${productData.Images.PrimarySmall}" alt="${productData.Name}, small">
+      </picture>
+      <p>${productData.DescriptionHtmlSimple}</p>
+      <span>${productData.SuggestedRetailPrice 
+        ? `<span style="text-decoration: line-through; color: red">$${productData.SuggestedRetailPrice}</span>`
+        : ''
+        }
+        $${productData.FinalPrice} </span>
+    </div>
+      `;
+  innerContainer.querySelector('#quickview-close').addEventListener('click', (event) => {
+    innerContainer.animate(
+      [
+        { transform: `scale(1)` },
+        { transform: `scale(0)` },
+      ],
+      {
+        duration: 300,
+        easing: 'ease-in',
+        fill: 'none',
+      }
+    ).onfinish = () => { outterContainer.remove()} ;
+  })
+
+  // innerContainer.innerHTML = '<h2>TEST TEST</h3>';
+
+  //Add it to the page
+  outterContainer.insertAdjacentElement('afterbegin',innerContainer);
+  document.querySelector('body').insertAdjacentElement('afterbegin', outterContainer);
+
 }
